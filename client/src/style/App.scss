@@ -11,6 +11,7 @@ body {
   background: url("../assets/img/vicino_sidebar.png") no-repeat;
   // background-size: contain;
   background-repeat: no-repeat;
+  position: relative;
 }
 .cursor_pointer {
   cursor: pointer !important;
@@ -386,11 +387,41 @@ body {
     margin-right: 10px;
   }
 }
-
-.sidebar-custom {
-  height: 100vh;
+.custom-side-bar{
+  // background: url("../assets/img/vicino_sidebar.png") no-repeat;
+  // // background-size: contain;
+  // background-repeat: no-repeat;
 }
+.sidebar-custom {
+  min-height: 100vh;
+}
+.register-step-container{
+  position: absolute;
+  top: 200px;
+  right: -55px;
+  .register-step{
+    height: 70px;
+    width: 70px;
+    color: white;
+    padding: 20px 25px;
+    margin: 20px  !important;
+    background-color: #0074bb !important;
+    border: 5px solid #ffffff;
+    border-radius: 100%;
 
+  }
+  .register-step-active{
+    height: 70px;
+    width: 70px;
+    color: white;
+    padding: 20px 25px;
+    margin: 20px  !important;
+    background-color: #0074bb !important;
+    border: 5px solid #0074bb;
+    border-radius: 100%;
+
+  }
+}
 .dashboard-card {
   height: 200px;
   border: 1px solid #0074bb;
@@ -411,7 +442,59 @@ body {
   }
 }
 
-
-.job-card-icon{
+.job-card-icon {
   height: 16px;
+}
+
+.job-pool-step {
+  position: relative;
+  .step-border {
+    border-top: 3px solid gray;
+    width: 100%;
+    margin-top: 35px;
+  }
+  .step-container {
+    .step {
+      height: 70px;
+      width: 70px;
+      border: 4px solid gray;
+      border-radius: 100%;
+      color: gray;
+      padding: 20px 25px;
+      // background-color: #0074bb;
+    }
+    .active-step {
+      height: 70px;
+      width: 70px;
+      border: 4px solid #074b75;
+      border-radius: 100%;
+      color: #ffffff;
+      padding: 20px 25px;
+      background-color: #0074bb;
+    }
+    .step-name {
+      font-size: 10px;
+      text-align: center;
+      max-width: 70px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+  }
+}
+
+.step-footer{
+  // position: fixed;
+  bottom: 0px;
+  height: 60px;
+  width: 100%;
+  border-top: 1px solid gray;
+}
+
+.step-content-area{
+  min-height: 400px;
+}
+.job-card-header{
+  color: #0074bb;
+  border-bottom: 2px solid #0074bb;
+  font-weight: 600;
 }

@@ -51,7 +51,7 @@ const OTPModal = ({ open, closeModal, isVerified = false ,handleSubmit, handleVe
         <div>
           <h4 className="text-dark text-center">Thank You</h4>
           <div className="text-center text-gray">
-            <small>YOUR NUMBER HAS BEN VERIFIED </small>
+            <small>YOUR NUMBER HAS BEEN VERIFIED </small>
           </div>
           <div className="text-center text-gray">
             <small>{register_data.mobile}</small>

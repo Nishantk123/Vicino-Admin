@@ -217,7 +217,7 @@ const Step1 = ({ handleStep, handleDataChange, register_data }) => {
                   />
                 </div>
                 <div class=" mb-2">
-                  <label for="floatingInput ">Midle Name</label>
+                  <label for="floatingInput ">Middle Name</label>
                   <input
                     type="email"
                     class="form-control my-2 "

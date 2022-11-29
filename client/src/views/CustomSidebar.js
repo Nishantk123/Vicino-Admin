@@ -8,24 +8,29 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 import user from "../assets/img/user.png";
+import agency from "../assets/img/agency.png";
+import sidebar_bottom from "../assets/img/sidebar_bottom.png"
 
-const CustomSidebar = ({toggle, hadleToggle}) => {
-
+const CustomSidebar = ({ toggle, hadleToggle }) => {
   return (
-    <div className="custom side bar">
+    <div className="custom-side-bar ">
       <ProSidebar collapsed={toggle} className="sidebar-custom">
         <SidebarHeader>
           <div className="w-100 d-flex  justify-content-center p-3">
-            <img src={user} className="klp-symble" />
+            <img src={agency} className="klp-symble" />
+          </div>
+          <div className="text-center mb-2">
+            <small>PRO 360 SURVEY PVT LTD</small>
           </div>
         </SidebarHeader>
         <SidebarContent>
           <Menu iconShape="square">
             <MenuItem
               icon={<i class="fas fa-fw fa-wrench"></i>}
-              onClick={() => {}
+              onClick={
+                () => {}
                 // history.push("/dashboard/customer")
-            }
+              }
             >
               Dashboard
             </MenuItem>
@@ -33,125 +38,82 @@ const CustomSidebar = ({toggle, hadleToggle}) => {
               icon={<i class="fas fa-fw fa-briefcase"></i>}
               title="Job pool"
             >
-              <MenuItem onClick={() =>{}
-                //  history.push("/dashboard/invoice")
-                 }>
-                Job pool
-              </MenuItem>
-              <MenuItem onClick={() =>{}
-                //  history.push("/dashboard/purchase")
+              <MenuItem
+                onClick={
+                  () => {}
+                  //  history.push("/dashboard/invoice")
                 }
-                 >
-                Purchase Vigat
+              >
+                Standard
               </MenuItem>
-              <MenuItem onClick={() =>{}
-                //  history.push("/dashboard/assortment")
-                 }>
-                Assortment
+              <MenuItem
+                onClick={
+                  () => {}
+                  //  history.push("/dashboard/purchase")
+                }
+              >
+                Express
               </MenuItem>
             </SubMenu>
             <MenuItem
               icon={<i class="fas fa-fw fa-chart-area"></i>}
-              onClick={() => {}
+              onClick={
+                () => {}
                 // history.push("/dashboard/broker-analysis")
-            }
+              }
             >
-              Briefing Document
+              My Job Pool
             </MenuItem>
-            <SubMenu
-              icon={<i class="fas fa-fw fa-briefcase"></i>}
-              title="Research Method"
-            >
-              <MenuItem onClick={() =>{}
-                //  history.push("/dashboard/invoice")
-                 }>
-                Job pool
-              </MenuItem>
-              <MenuItem onClick={() =>{}
+            <MenuItem
+            icon={<i class="fas fa-fw fa-chart-area"></i>}
+              onClick={
+                () => {}
                 //  history.push("/dashboard/purchase")
-                }
-                 >
-                Purchase Vigat
-              </MenuItem>
-              <MenuItem onClick={() =>{}
-                //  history.push("/dashboard/assortment")
-                 }>
-                Assortment
-              </MenuItem>
-            </SubMenu>
-            <SubMenu
-              icon={<i class="fas fa-fw fa-briefcase"></i>}
-              title="Audits"
+              }
             >
-              <MenuItem onClick={() =>{}
-                //  history.push("/dashboard/invoice")
-                 }>
-                Job pool
-              </MenuItem>
-              <MenuItem onClick={() =>{}
+              Company Profile
+            </MenuItem>
+            <MenuItem
+            icon={<i class="fas fa-fw fa-chart-area"></i>}
+              onClick={
+                () => {}
                 //  history.push("/dashboard/purchase")
-                }
-                 >
-                Purchase Vigat
-              </MenuItem>
-              <MenuItem onClick={() =>{}
-                //  history.push("/dashboard/assortment")
-                 }>
-                Assortment
-              </MenuItem>
-            </SubMenu>
-            <MenuItem
-              icon={<i class="fas fa-fw fa-chart-area"></i>}
-              onClick={() => {}
-                // history.push("/dashboard/general-account")
-            }
+              }
             >
-              Users
-            </MenuItem>
-            {/* <MenuItem icon={<i class="fas fa-fw fa-chart-area" ></i>} onClick={()=>history.push('/dashboard/lot-sale')}>
-            Lot Sale Detail
-          </MenuItem> */}
-            <MenuItem
-              icon={<i class="fas fa-fw fa-chart-area"></i>}
-              onClick={() => {}
-                // history.push("/dashboard/stock-tracking")
-            }
-            >
-              Brands
+              Payment Information
             </MenuItem>
             <MenuItem
-              icon={<i class="fas fa-fw fa-file-alt"></i>}
-              onClick={() =>{}
-                //  history.push("/dashboard/report")
-                }
+            icon={<i class="fas fa-fw fa-chart-area"></i>}
+              onClick={
+                () => {}
+                //  history.push("/dashboard/purchase")
+              }
             >
-              Job Reports
+              Network
             </MenuItem>
-            <MenuItem 
-              icon={<i class="fas fa-fw fa-file-alt"></i>}
-              onClick={() =>{}
-                //  history.push("/dashboard/report")
-                }
+            <MenuItem
+            icon={<i class="fas fa-fw fa-chart-area"></i>}
+              onClick={
+                () => {}
+                //  history.push("/dashboard/purchase")
+              }
             >
-              Supervisors
+              Account Settings
             </MenuItem>
-            <MenuItem 
-              icon={<i class="fas fa-fw fa-file-alt"></i>}
-              onClick={() =>{}
-                //  history.push("/dashboard/report")
-                }
-            >
-              Sponsers
-            </MenuItem>
+
+           
             {/* <MenuItem icon={<i class="fas fa-fw fa-file-alt"></i>}>
             Report Single
           </MenuItem> */}
-            <MenuItem>
+            {/* <MenuItem>
               <hr class="sidebar-divider d-none d-md-block"></hr>
-            </MenuItem>
+            </MenuItem> */}
             {/* <MenuItem> */}
-            <div class="text-center d-none d-md-block">
-              <div
+            
+            {/* </MenuItem> */}
+          </Menu>
+          <div class="text-center d-none d-md-block">
+              {/* <div
                 className="rounded-circle border-0 sidebar-toggle"
                 onClick={hadleToggle}
               >
@@ -160,12 +122,12 @@ const CustomSidebar = ({toggle, hadleToggle}) => {
                 ) : (
                   <i class="fa-solid fa-angle-left"></i>
                 )}
-              </div>
+              </div> */}
+              <img src={sidebar_bottom}  className="w-100"/>
             </div>
-            {/* </MenuItem> */}
-          </Menu>
         </SidebarContent>
       </ProSidebar>
+      
     </div>
   );
 };

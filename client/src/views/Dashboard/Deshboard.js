@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import MainDashboard from "./MainDashboard";
 import Login from "../Login";
 import JobPool from "../JobPool";
+import CreateJobPool from "../createJobPool/CreateJobPool";
 
 const Dashboard = () => {
   const [toggle, setToggle] = useState(false);
@@ -37,6 +38,9 @@ const Dashboard = () => {
             </Route>
             <Route exact path={`${path}/job-pool`}>
               <JobPool />
+            </Route>
+            <Route exact path={`${path}/create-job-pool`}>
+              <CreateJobPool />
             </Route>
           </Switch>
         </div>

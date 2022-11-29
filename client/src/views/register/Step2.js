@@ -282,7 +282,7 @@ const Step2 = ({ handleStep, handleDataChange, register_data }) => {
         </div>
         <div>
           <button
-            className="btn btn-primary"
+            className="btn btn-primary mt-3"
             onClick={() => handleNext("COMPANY ADDRESS")}
             disabled={!is_gstn_valid||is_pan_valid||is_valid_email}
           >
@@ -360,7 +360,7 @@ const Step2 = ({ handleStep, handleDataChange, register_data }) => {
         </div>
         <div>
           <button
-            className="btn btn-primary"
+            className="btn btn-primary mt-3"
             onClick={() => handleNext("step")}
           >
             Next

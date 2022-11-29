@@ -73,6 +73,12 @@ const Register = () => {
         <div className="row">
           <div className="col-sm-4 col-md-4 col-lg-3 bg-dark left-side login_left_side">
             {/* <img className="register-logo" src={logo} /> */}
+            <div className="register-step-container">
+            {<div className={step >= 1 ?"register-step-active":"register-step"}>1</div>}
+            {<div className={step >= 2 ?"register-step-active":"register-step"}>2</div>}
+            {<div className={step >= 3 ?"register-step-active":"register-step"}>3</div>}
+            </div>
+
           </div>
           <div className="col-sm-8 col-md-8 col-lg-9">
             {!is_register && (
