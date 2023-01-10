@@ -1,6 +1,12 @@
 import React from "react";
 
-const TimeFrame = () => {
+const TimeFrame = ({time_frame, setTimeFrame}) => {
+
+  const handleTimeFrame = (e,field) =>{
+    const data = {...time_frame}
+    data[field] = e.target.value
+    setTimeFrame(data)
+  }
   return (
     <div className="container position-relative mt-3">
       <h3 className="text-gray text-center">
@@ -18,7 +24,7 @@ const TimeFrame = () => {
             className="form-control"
             placeholder="Enter your project name"
             // value={project_name}
-            // onChange={(e) => handleProjectName(e)}
+            onChange={(e) => handleTimeFrame(e,"start_date")}
           />
         </div>
         <div className="col-sm-4 mt-3">
@@ -31,7 +37,7 @@ const TimeFrame = () => {
             className="form-control w-100"
             placeholder="Enter your project name"
             // value={project_name}
-            // onChange={(e) => handleProjectName(e)}
+            onChange={(e) => handleTimeFrame(e,"end_date")}
           />
 
             </div>

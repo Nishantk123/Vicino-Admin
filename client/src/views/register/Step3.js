@@ -1,14 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-const Step3 = ({handleStep, handleDataChange, register_data }) => {
+const Step3 = ({handleStep, handleDataChange, register_data, handleSubmit }) => {
     const history = useHistory()
-    const handleSubmit = ()=>{
-        history.push("/login")
-    }   
+    // const handleSubmit = ()=>{
+    //     history.push("/login")
+    // }   
   return (
     <div className="container">
       <div className="d-flex justify-content-end mb-3">
-        <button className="btn btn-outline-primary">back</button>
+        <button className="btn btn-outline-primary" onClick={()=>handleStep(2)}>back</button>
       </div>
       <div className="row justify-content-center">
         <div className="col-sm-10">
@@ -47,6 +47,7 @@ const Step3 = ({handleStep, handleDataChange, register_data }) => {
                   class="form-control"
                   id="floatingInput"
                   value={register_data.email}
+                  onChange={(e)=> handleDataChange(e, "email")}
 
                 />
               </div>

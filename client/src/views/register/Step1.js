@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import OTPModal from "./OTPModal";
 import axios from "axios";
 
-const Step1 = ({ handleStep, handleDataChange, register_data }) => {
+const Step1 = ({ handleStep, handleDataChange, register_data,setIsRegister }) => {
   const [open, setOpen] = useState(false);
   const [price_select, setPriceSelect] = useState("");
   const [isVerified, setIsVerified] = useState(false);
@@ -12,6 +12,10 @@ const Step1 = ({ handleStep, handleDataChange, register_data }) => {
   const closeModal = () => {
     setOpen(false);
   };
+  const handlePlan = (e,name)=>{
+    handleDataChange(e,name)
+    setPriceSelect(name)
+  }
   const getOTP = () => {
     axios({
       url: "http://localhost:5000/otp/get_otp",
@@ -89,7 +93,7 @@ const Step1 = ({ handleStep, handleDataChange, register_data }) => {
               <div className="col-sm-3 pt-3 text-center">
                 <button
                   className="btn btn-primary "
-                  onClick={() => setPriceSelect("standard")}
+                  onClick={() =>  handlePlan("standard","plan")}
                 >
                   Buy Now
                 </button>
@@ -145,7 +149,7 @@ const Step1 = ({ handleStep, handleDataChange, register_data }) => {
               <div className="col-sm-3 pt-3 text-center">
                 <button
                   className="btn btn-primary "
-                  onClick={() => setPriceSelect("express")}
+                  onClick={() => handlePlan("express","plan")}
                 >
                   Buy Now
                 </button>
@@ -191,7 +195,7 @@ const Step1 = ({ handleStep, handleDataChange, register_data }) => {
   return (
     <div className="container px-3 my-3">
       <div className="d-flex justify-content-end mb-2">
-        <button className="btn btn-outline-primary">back</button>
+        <button className="btn btn-outline-primary" onClick={()=>setIsRegister(false)}>back</button>
       </div>
       <div className="row justify-content-center">
         <div className="col-sm-10">
@@ -246,7 +250,7 @@ const Step1 = ({ handleStep, handleDataChange, register_data }) => {
                     onChange={(e) => hanldeEmailValidation(e, "email")}
                   />
                 </div>
-                {!is_valid_email && (
+                {!is_valid_email && register_data.email !==""&& (
                   <div className="text-danger">Please enter valid email</div>
                 )}
                 <div class="mb-2">

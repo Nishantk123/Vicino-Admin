@@ -35,8 +35,9 @@ const OTPModal = ({ open, closeModal, isVerified = false ,handleSubmit, handleVe
     })
     .then(res =>{
       console.log("test")
+      handleVerified()
+
     })
-    handleVerified()
 
   }
   return (

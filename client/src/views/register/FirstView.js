@@ -23,9 +23,9 @@ const FirstView = ({ handleSelect }) => {
             <h3 className="text-gray">Choose a Role</h3>
           </div>
         </div>
-        <div className="row my-5 justify-content-center">
-          <div className="col-sm-5">
-            <div className="card">
+        <div className="row mt-5 justify-content-center">
+          <div className="col-sm-5 mb-5">
+            <div className="card ">
               <div className="card-body register-user-card">
                 <div className="card-icon">
                   <img src={user} />
@@ -46,8 +46,8 @@ const FirstView = ({ handleSelect }) => {
               </div>
             </div>
           </div>
-          <div className="col-sm-5">
-            <div className="card">
+          <div className="col-sm-5 mb-5">
+            <div className="card ">
               <div className="card-body register-user-card">
                 <div className="card-icon">
                   <img src={user} />
@@ -69,9 +69,9 @@ const FirstView = ({ handleSelect }) => {
             </div>
           </div>
         </div>
-        <div className="row second-row justify-content-center">
-          <div className="col-sm-5">
-            <div className="card">
+        <div className="row second-row justify-content-center ">
+          <div className="col-sm-5 mb-5">
+            <div className="card ">
               <div className="card-body register-user-card">
                 <div className="card-icon">
                   <img src={user} />
@@ -92,8 +92,8 @@ const FirstView = ({ handleSelect }) => {
               </div>
             </div>
           </div>
-          <div className="col-sm-5">
-            <div className="card">
+          <div className="col-sm-5 mb-3">
+            <div className="card ">
               <div className="card-body register-user-card">
                 <div className="card-icon">
                   <img src={user} />

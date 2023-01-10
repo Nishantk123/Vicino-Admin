@@ -1,17 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/img/logo.png";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const history = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleForgetPassword = () => {
     history.push("/forget_password");
   };
+  const handleLogin = () =>{
+    let data ={
+      email,
+      password
+    }
+    axios({
+      method:"POST",
+      url:"http://localhost:5000/user/login",
+      data: data
+    })
+    .then(
+      res=>{
+        if(res.data){
+          window.sessionStorage.setItem("token",res.data.token);
+          window.sessionStorage.setItem("user_data",JSON.stringify(res.data))
+          history.push("/dashboard")
+
+        }
+        
+      }
+    )
+  }
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-sm-4 col-md-4 col-lg-3 bg-dark left-side login_left_side">
+        <div className="col-sm-4 col-md-4 col-lg-3 bg-dark left-side login_left_side d-none d-md-block d-lg-block">
           {/* <img className="register-logo" src={logo} /> */}
         </div>
         <div className="col-sm-8 col-md-8 col-lg-9">
@@ -19,7 +44,7 @@ const Login = () => {
             <div className="col-sm-6 col-md-5  top_margin">
               <h1 className="text-gray text-center my-3">Admin Login</h1>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" />
+                <input type="email" class="form-control" id="floatingInput" onChange={(e)=>setEmail(e.target.value)}/>
                 {/* <label for="floatingInput">Mobile/Email</label> */}
               </div>
               <div class="form-floating mb-3">
@@ -27,11 +52,12 @@ const Login = () => {
                   type="password"
                   class="form-control "
                   id="floatingInput"
+                  onChange={(e)=>setPassword(e.target.value)}
                 />
                 {/* <label for="floatingInput">Password</label> */}
               </div>
               <div className="">
-                <button className="btn btn-primary w-100 my-3">Login</button>
+                <button className="btn btn-primary w-100 my-3" onClick={handleLogin}>Login</button>
               </div>
               <div
                 className="my-3 d-flex justify-content-center text-primary cursor_pointer"

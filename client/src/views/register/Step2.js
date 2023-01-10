@@ -225,6 +225,7 @@ const Step2 = ({ handleStep, handleDataChange, register_data }) => {
             type="email"
             class="form-control mt-1"
             id="floatingInput"
+            value={register_data.email}
             onChange={(e) => hanldeEmailValidation(e)}
           />
         </div>
@@ -284,7 +285,7 @@ const Step2 = ({ handleStep, handleDataChange, register_data }) => {
           <button
             className="btn btn-primary mt-3"
             onClick={() => handleNext("COMPANY ADDRESS")}
-            disabled={!is_gstn_valid||is_pan_valid||is_valid_email}
+            disabled={!is_gstn_valid||!is_pan_valid||!is_valid_email}
           >
             Next
           </button>
@@ -306,55 +307,66 @@ const Step2 = ({ handleStep, handleDataChange, register_data }) => {
                   type="text"
                   class="form-control mt-1"
                   id="floatingInput"
+                  value={register_data.company_name}
+                  onChange={(e)=>handleDataChange(e,'company_name')}
+
                 />
               </div>
             </div>
             <div className="col-sm-6">
               <label for="floatingInput">upload a company logo</label>
-              <input type="file" class="form-control " id="floatingInput" />
+              <input type="file" class="form-control " id="floatingInput" onChange={(e)=> handleDataChange(e,'company_logo')} />
             </div>
           </div>
           <div className="row">
             <div className="col-sm-6">
               <label>Select Categories Company Is Present In</label>
-              <input type="text" class="form-control mt-1" id="floatingInput" />
+              <Select isMulti={false} options={options} onChange={(e) => handleDataChange(e,'company_category')} />
             </div>
             <div className="col-sm-6">
               <label>Company Present Across India</label>
               <div className="mt-1">
-                <input type="radio" name="type" /> Yes
-                <input type="radio" name="type" className="ms-3" /> No
+                <input type="radio" name="type" onChange={(e)=>handleDataChange("Yes",'company_across_india')}/> Yes
+                <input type="radio" name="type" className="ms-3"onChange={(e)=>handleDataChange("No",'company_across_india') }/> No
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-sm-6">
               <label>Annual Sales of the Company</label>
-              <Select isMulti options={options} onChange={() => {}} />
+              <input type="text" class="form-control mt-1" id="floatingInput" 
+              onChange={(e)=>handleDataChange(e,'annual_sales')}
+              /> 
             </div>
             <div className="col-sm-6">
               <label>Employee Number</label>
-              <input type="text" class="form-control mt-1" id="floatingInput" />
+              <input type="text" class="form-control mt-1" id="floatingInput" 
+              onChange={(e)=>handleDataChange(e,'employee_no')}
+              />
             </div>
           </div>
           <div className="row">
             <div className="col-sm-6">
               <label>Please provide company website URL</label>
-              <input type="text" class="form-control mt-1" id="floatingInput" />
+              <input type="text" class="form-control mt-1" id="floatingInput"
+              onChange={(e)=>handleDataChange(e,'website')} />
             </div>
             <div className="col-sm-6">
               <label>Facebook page</label>
-              <input type="text" class="form-control mt-1" id="floatingInput" />
+              <input type="text" class="form-control mt-1" id="floatingInput"
+              onChange={(e)=>handleDataChange(e,'facebook')} />
             </div>
           </div>
           <div className="row">
             <div className="col-sm-6">
               <label>Instagram page</label>
-              <input type="text" class="form-control mt-1" id="floatingInput" />
+              <input type="text" class="form-control mt-1" id="floatingInput" 
+              onChange={(e)=>handleDataChange(e,'instagram')}/>
             </div>
             <div className="col-sm-6">
               <label>Brief description of the company</label>
-              <input type="text" class="form-control mt-1" id="floatingInput" />
+              <input type="text" class="form-control mt-1" id="floatingInput"
+              onChange={(e)=>handleDataChange(e,'company_description')} />
             </div>
           </div>
         </div>
@@ -369,10 +381,15 @@ const Step2 = ({ handleStep, handleDataChange, register_data }) => {
       </div>
     );
   };
+  console.log(is_valid_email)
+  console.log(is_gstn_valid)
+  console.log(is_pan_valid)
+
+
   return (
     <div className="conatiner">
       <div className="d-flex justify-content-end">
-        <button className="btn btn-primary my-3">Back</button>
+        <button className="btn btn-primary my-3" onClick ={()=>handleStep(1)}>Back</button>
       </div>
       <div className="row justify-content-center">
         <div className="col-sm-10">

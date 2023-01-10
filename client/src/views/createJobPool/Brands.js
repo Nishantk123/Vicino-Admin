@@ -6,7 +6,7 @@ const Brands = ({brand_name,handleBrandName}) =>{
             <h3 className="text-gray text-center">Brands to be studied</h3>
             <div className="row justify-content-center">
                 <div className="col-sm-6 mt-3">
-                    <select
+                    {/* <select
                     className="form-control"
                      onChange={(e)=> handleBrandName(e)}>
                         <option>Select Brands</option>
@@ -15,7 +15,11 @@ const Brands = ({brand_name,handleBrandName}) =>{
                         <option value="Auto Industry">Auto Industry</option>
                         <option value="Auto Industry">Auto Industry</option>
 
-                    </select>
+                    </select> */}
+                    <input 
+                    className="form-control"
+                    onChange={(e)=> handleBrandName(e)} placeholder="Enter Brands"/>
+
                 </div>
             </div>
         </div>

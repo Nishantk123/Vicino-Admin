@@ -16,10 +16,10 @@ const MainDashboard = () => {
         <div className="row">
           <div className="col-sm-4">
             <div className="card dashboard-card">
-              <div className="card-body">
+              <div className="card-body" onClick={() => history.push("/dashboard/job-pool")}>
                 <div
                   className="dashboard_icon"
-                  onClick={() => history.push("/dashboard/job-pool")}
+                  
                 >
                   <img src={icon_jobs} />
                 </div>
@@ -39,11 +39,11 @@ const MainDashboard = () => {
           </div>
           <div className="col-sm-4">
             <div className="card dashboard-card">
-              <div className="card-body">
+              <div className="card-body " onClick={() => history.push("/dashboard/user-management")}>
                 <div className="dashboard_icon">
                   <img src={icon_users} />
                 </div>
-                <h3 className="text-primary">User Management</h3>
+                <h3 className="text-primary" >User Management</h3>
               </div>
             </div>
           </div>

@@ -1,6 +1,36 @@
 import React from "react";
 
-const ResearchType = () => {
+const ResearchType = ({ research_type, setResearchType }) => {
+  const research_list = [
+    {
+      type: "Online Surveys",
+      description:
+        "This would be the level of Brand awareness amongst a specific setor profile of consumers. This is a good measure of a target consumer's ability to recognize and associate with the brand in terms of image, product/service.",
+    },
+    {
+      type:"In-Person Interviews",
+      description:"This would be the level of Brand awareness amongst a specific setor profile of consumers. This is a good measure of a target consumer's ability to recognize and associate with the brand in terms of image, product/service.",
+    },
+    {
+      type:"Focus Groups",
+      description:"This would be the level of Brand awareness amongst a specific setor profile of consumers. This is a good measure of a target consumer's ability to recognize and associate with the brand in terms of image, product/service.",
+    },
+    {
+      type:"Panel Sampling",
+      description:"This would be the level of Brand awareness amongst a specific setor profile of consumers. This is a good measure of a target consumer's ability to recognize and associate with the brand in terms of image, product/service.",
+    },
+    {
+      type:"Telephone Surveys",
+      description:"This would be the level of Brand awareness amongst a specific setor profile of consumers. This is a good measure of a target consumer's ability to recognize and associate with the brand in terms of image, product/service.",
+    },
+    {
+      type:"Post-call Surveys",
+      description:"This would be the level of Brand awareness amongst a specific setor profile of consumers. This is a good measure of a target consumer's ability to recognize and associate with the brand in terms of image, product/service.",
+    }
+  ];
+  const handleOnChange = (data) =>{
+    setResearchType(data)
+  }
   return (
     <div>
       <div className="container position-relative mt-3">
@@ -12,108 +42,25 @@ const ResearchType = () => {
         <div className="row justify-content-center">
           <div className="col-sm-10 mt-3">
             <div className="row">
-              <div className="col-sm-4 my-2">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between">
-                    <div className="job-card-header">Online Surveys</div>
-                    <input type="checkbox" name="Online Surveys" />
+              {
+                research_list.map((data,index)=>{
+                  return(
+                    <div className="col-sm-4 my-2">
+                    <div className="card">
+                      <div className="card-header d-flex justify-content-between">
+                        <div className="job-card-header">{data.type}</div>
+                        <input type="checkbox" name="Online Surveys" onChange={()=>handleOnChange(data)} />
+                      </div>
+                      <div className="card-body">
+                        <small className="text-center">
+                         {data.description}
+                        </small>
+                      </div>
+                    </div>
                   </div>
-                  <div className="card-body">
-                    <small className="text-center">
-                      This would be the level of Brand awareness amongst a
-                      specific setor profile of consumers. This is a good
-                      measure of a target consumer's ability to recognize and
-                      associate with the brand in terms of image,
-                      product/service.
-                    </small>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-4 my-2">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between">
-                    <div className="job-card-header">In-Person Interviews</div>
-                    <input type="checkbox" name="In-Person Interviews" />
-                  </div>
-                  <div className="card-body">
-                    <small className="text-center">
-                      This would be the level of Brand awareness amongst a
-                      specific setor profile of consumers. This is a good
-                      measure of a target consumer's ability to recognize and
-                      associate with the brand in terms of image,
-                      product/service.
-                    </small>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-4 my-2">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between">
-                    <div className="job-card-header">Focus Groups</div>
-                    <input type="checkbox" name="Focus Groups" />
-                  </div>
-                  <div className="card-body">
-                    <small className="text-center">
-                      This would be the level of Brand awareness amongst a
-                      specific setor profile of consumers. This is a good
-                      measure of a target consumer's ability to recognize and
-                      associate with the brand in terms of image,
-                      product/service.
-                    </small>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-4 my-2">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between">
-                    <div className="job-card-header">Panel Sampling</div>
-                    <input type="checkbox" name="Panel Sampling" />
-                  </div>
-                  <div className="card-body">
-                    <small className="text-center">
-                      This would be the level of Brand awareness amongst a
-                      specific setor profile of consumers. This is a good
-                      measure of a target consumer's ability to recognize and
-                      associate with the brand in terms of image,
-                      product/service.
-                    </small>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-4 my-2">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between">
-                    <div className="job-card-header">Telephone Surveys</div>
-                    <input type="checkbox" name="Telephone Surveys" />
-                  </div>
-                  <div className="card-body">
-                    <small className="text-center">
-                      This would be the level of Brand awareness amongst a
-                      specific setor profile of consumers. This is a good
-                      measure of a target consumer's ability to recognize and
-                      associate with the brand in terms of image,
-                      product/service.
-                    </small>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-4 my-2">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between">
-                    <div className="job-card-header">Post-call Surveys</div>
-                    <input type="checkbox" name="Post-call Surveys" />
-                  </div>
-                  <div className="card-body">
-                    <small className="text-center">
-                      This would be the level of Brand awareness amongst a
-                      specific setor profile of consumers. This is a good
-                      measure of a target consumer's ability to recognize and
-                      associate with the brand in terms of image,
-                      product/service.
-                    </small>
-                  </div>
-                </div>
-              </div>
+                  )
+                })
+              }
             </div>
           </div>
         </div>

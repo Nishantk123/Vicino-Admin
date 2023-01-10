@@ -377,7 +377,7 @@ body {
 }
 .user-header-container {
   background-color: #0074bb !important;
-  width: 200px;
+  max-width: 200px;
   height: 70px;
   padding: 10px 5px;
   color: white;
@@ -394,6 +394,19 @@ body {
 }
 .sidebar-custom {
   min-height: 100vh;
+  @media (max-width:481px){
+    z-index: 1009 !important;
+    position: absolute !important ;
+    width: 270px !important;
+    min-width: 270px !important;
+
+  }
+}
+.sidebar-custom-mobile{
+  @media (max-width:481px){
+  display: none;
+
+  }
 }
 .register-step-container{
   position: absolute;
@@ -498,3 +511,36 @@ body {
   border-bottom: 2px solid #0074bb;
   font-weight: 600;
 }
+
+.close_question-icon{
+  height: 20px;
+  margin: 9px 10px;
+}
+.network-photo{
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  background-color: #777777;
+}
+
+.drop-container{
+  border: 5px solid #0074bb;
+  border-radius: 40px;
+  padding: 30px;
+  margin-top: 30px;
+}
+
+.file_container{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  .file_img{
+    height: 100px;
+    width: 80px;
+  }
+}
+
+.preview-border-left{
+  border-left: 2px solid gray;
+}
+

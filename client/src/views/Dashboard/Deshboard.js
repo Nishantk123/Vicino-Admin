@@ -13,18 +13,28 @@ import MainDashboard from "./MainDashboard";
 import Login from "../Login";
 import JobPool from "../JobPool";
 import CreateJobPool from "../createJobPool/CreateJobPool";
+import UserManagement from "../usermanagement/UserManagement";
+import PaymentInformation from "../PaymentInformation";
+import Network from "../Network";
+import AccountRegistration from "../account/AccountRegistration";
+import AccountSubscription from "../account/AccountSubscription";
+import AccountBilling from "../account/AcountBilling";
 
 const Dashboard = () => {
   const [toggle, setToggle] = useState(false);
   const { path, url } = useRouteMatch();
-
+  const history = useHistory()
+  const token = window.sessionStorage.getItem("token");
+  const user_data = JSON.parse(window.sessionStorage.getItem("user_data"));
   // const history = useHistory()
+  if (token){
 
+  }else{
+    history.push('/login')
+  }
   const hadleToggle = () => {
     setToggle(!toggle);
   };
-  console.log("sdada",path);
-  console.log("url",url)
   return (
     <div className="d-flex">
       <CustomSidebar toggle={toggle} hadleToggle={hadleToggle} />
@@ -42,6 +52,26 @@ const Dashboard = () => {
             <Route exact path={`${path}/create-job-pool`}>
               <CreateJobPool />
             </Route>
+            <Route exact path={`${path}/user-management`}>
+              <UserManagement />
+            </Route>
+            <Route exact path={`${path}/payment-information`}>
+              <PaymentInformation />
+            </Route>
+            <Route exact path={`${path}/network`}>
+              <Network />
+            </Route>
+            <Route exact path={`${path}/account-registration`}>
+              <AccountRegistration />
+            </Route>
+            <Route exact path={`${path}/account-subscription`}>
+              <AccountSubscription />
+            </Route>
+            <Route exact path={`${path}/account-billing`}>
+              <AccountBilling />
+            </Route>
+
+
           </Switch>
         </div>
       </div>
