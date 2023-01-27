@@ -19,6 +19,8 @@ import Network from "../Network";
 import AccountRegistration from "../account/AccountRegistration";
 import AccountSubscription from "../account/AccountSubscription";
 import AccountBilling from "../account/AcountBilling";
+import Jobdetail from "../job/JobDetail";
+import Survey from "../job/Survey";
 
 const Dashboard = () => {
   const [toggle, setToggle] = useState(false);
@@ -27,6 +29,8 @@ const Dashboard = () => {
   const token = window.sessionStorage.getItem("token");
   const user_data = JSON.parse(window.sessionStorage.getItem("user_data"));
   // const history = useHistory()
+  const params = useParams()
+  console.log(params)
   if (token){
 
   }else{
@@ -69,6 +73,12 @@ const Dashboard = () => {
             </Route>
             <Route exact path={`${path}/account-billing`}>
               <AccountBilling />
+            </Route>
+            <Route exact path={`${path}/job/:id`}>
+              <Jobdetail />
+            </Route>
+            <Route exact path={`${path}/job/:id/survey`}>
+              <Survey  />
             </Route>
 
 

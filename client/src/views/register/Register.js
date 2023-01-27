@@ -161,7 +161,7 @@ const Register = () => {
     formData.append("logo", register_data.logo);
     axios({
       method: "POST",
-      url: "http://localhost:5000/user/register",
+      url: process.env.REACT_APP_API+"/user/register",
       data: formData,
     }).then((res) => {
       console.log("test");

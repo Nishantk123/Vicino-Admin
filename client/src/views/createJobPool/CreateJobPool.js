@@ -81,7 +81,7 @@ const CreateJobPool = () => {
     };
     axios({
       method:"POST",
-      url:"http://localhost:5000/job/create_job",
+      url:process.env.REACT_APP_API+"/job/create_job",
       data: data
     })
     .then(

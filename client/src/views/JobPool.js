@@ -15,7 +15,7 @@ const JobPool = () => {
   const [job_list, setJobList] = useState([]);
 
   const getjobPool = () => {
-    axios.get("http://localhost:5000/job/get_job").then((res) => {
+    axios.get(process.env.REACT_APP_API+"/job/get_job").then((res) => {
       console.log(res);
       if (res.data) {
         setJobList(res.data);
@@ -25,9 +25,13 @@ const JobPool = () => {
   useEffect(() => {
     getjobPool();
   }, []);
-  console.log(job_list);
+
   const handleCreateJob = () =>{
     history.push("/dashboard/create-job-pool")
+  }
+  const handleApplyJob = (data) =>{
+    console.log(data)
+    history.push("/dashboard/job/"+data._id)
   }
   // let sample_size = 0;
   // let sampling_range = 0;
@@ -175,7 +179,7 @@ const getSampleSize = (data) =>{
                       </div>
                       <div>
                         <div className="btn btn-primary">
-                          <small>Apply for job</small>
+                          <small onClick={()=>handleApplyJob(data)}>Apply for job</small>
                         </div>
                       </div>
                     </div>

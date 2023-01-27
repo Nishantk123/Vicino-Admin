@@ -29,7 +29,7 @@ const OTPModal = ({ open, closeModal, isVerified = false ,handleSubmit, handleVe
 
   const checkOtp = () =>{
     axios({
-      url:"http://localhost:5000/otp/submit_otp",
+      url:process.env.REACT_APP_API+"/otp/submit_otp",
       method:"POST",
       data:{"otp": otp}
     })

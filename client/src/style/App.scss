@@ -544,3 +544,21 @@ body {
   border-left: 2px solid gray;
 }
 
+.jd-pic-container{
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right: 10px;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}
+.detail-value{
+  border-bottom: 2px solid #0074bb;
+  margin: 10px 0px;
+}
+.detail-label{
+  color: #0074bb;
+}

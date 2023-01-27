@@ -40,10 +40,9 @@ const jobSchema = new mongoose.Schema({
     questionnair:[{
         question: {type:"string", default: null},
         type: {type:"string", default: null},
-        option1: {type:"string", default: null},
-        option2: {type:"string", default: null},
-        option3: {type:"string", default: null},
-        option4: {type:"string", default: null}
+        answer:  {type:Boolean, default: false},
+        option: [],
+        
     }
     ],
     time_frame:{

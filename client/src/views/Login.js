@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handleForgetPassword = () => {
-    history.push("/forget_password");
+    history.push("/register");
   };
   const handleLogin = () =>{
     let data ={
@@ -18,7 +18,7 @@ const Login = () => {
     }
     axios({
       method:"POST",
-      url:"http://localhost:5000/user/login",
+      url:process.env.REACT_APP_API+"/user/login",
       data: data
     })
     .then(
@@ -63,7 +63,7 @@ const Login = () => {
                 className="my-3 d-flex justify-content-center text-primary cursor_pointer"
                 onClick={handleForgetPassword}
               >
-                Forgot Password
+                Register
               </div>
             </div>
           </div>

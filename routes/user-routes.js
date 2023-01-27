@@ -33,7 +33,7 @@ router.post("/register", upload.single('logo'), async (req, res) => {
   console.log("test",req.file)
   const url = req.protocol + '://' + req.get('host')
   console.log("url",url)
-  const profileImg =  url  +"/admin/"+ req.file.filename
+  const profileImg =  url  +"/admin/"+ req&&req.file&& req.file.filename&& req.file.filename
   try {
     //get user input
     const {

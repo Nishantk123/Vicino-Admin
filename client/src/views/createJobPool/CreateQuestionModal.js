@@ -14,9 +14,11 @@ const CreateQuestionModal = ({
   const [multi_choice, setMultichoice] = useState(true);
   const [other_option, setOtherOption] = useState(true);
   const [audio_video, setAudioVideo] = useState(false);
+  const [text_answer, setTextAnswer] = useState(false);
   const [require, setRequire] = useState(false);
   const [all_option, setAllOpton] = useState([]);
-  const [question, setQuestion] = useState("")
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
   const customStyles = {
     content: {
       top: "0%",
@@ -72,26 +74,74 @@ const CreateQuestionModal = ({
     if (name === "audio video") {
       setAudioVideo(e.target.checked);
     }
+    if (name === "text field") {
+      setTextAnswer(e.target.checked);
+    }
   };
   const handleCreate = () => {
-    let final= {
-        option: all_option,
-        multi_choice:multi_choice,
-        other_option:other_option,
-        require:require,
-        question:question
-    }
+    let final = {
+      option: all_option,
+      multi_choice: multi_choice,
+      other_option: other_option,
+      require: require,
+      question: question,
+      answer: text_answer,
+    };
     handleAddQuestion(final);
     handleCloseQuestion();
-    setAllOpton([])
-
+    setAllOpton([]);
   };
   const hanldleOption = (e, index) => {
     let all_op = [...all_option];
     all_op[index] = e.target.value;
     setAllOpton(all_op);
   };
-  console.log(all_option);
+  const handleAnswer =(e)=>{
+    setAnswer(e.target.value)
+  }
+
+  const getQuestionUI = () => {
+    if (text_answer) {
+      return (
+        <div className="">
+          <textarea className="form-control" onChange={(e)=> handleAnswer(e)}></textarea>
+        </div>
+      );
+    } else {
+      return(
+      <div>
+        {_.map(_.range(q_range), (data, index) => {
+          return (
+            <div className="d-flex my-2">
+              <div className="border px-3">{alfa[index]}</div>
+              <input
+                placeholder="Please Write an Option"
+                className="form-control  w-100"
+                value={all_option[index] || ""}
+                onChange={(e) => {
+                  hanldleOption(e, index);
+                }}
+              />
+              <img
+                src={close}
+                className="close_question-icon"
+                onClick={() => handleremoveQuestion(index)}
+              />
+            </div>
+          );
+        })}
+        <button
+          className="btn btn-outline-secondary  mt-3"
+          onClick={() => {
+            setQrange(q_range + 1);
+          }}
+        >
+          Add More Option
+        </button>
+      </div>
+      )
+    }
+  };
   return (
     <Modal
       isOpen={open}
@@ -109,13 +159,14 @@ const CreateQuestionModal = ({
               <input
                 placeholder="Please Write a Question"
                 className="form-control"
-                onChange={(e)=>setQuestion(e.target.value)}
+                onChange={(e) => setQuestion(e.target.value)}
               />
             </div>
             <div>
               <h3>A1</h3>
               <div>
-                {_.map(_.range(q_range), (data, index) => {
+                {getQuestionUI()}
+                {/* {_.map(_.range(q_range), (data, index) => {
                   return (
                     <div className="d-flex my-2">
                       <div className="border px-3">{alfa[index]}</div>
@@ -134,15 +185,7 @@ const CreateQuestionModal = ({
                       />
                     </div>
                   );
-                })}
-                <button
-                  className="btn btn-outline-secondary  mt-3"
-                  onClick={() => {
-                    setQrange(q_range + 1);
-                  }}
-                >
-                  Add More Option
-                </button>
+                })} */}
               </div>
             </div>
           </div>
@@ -213,6 +256,19 @@ const CreateQuestionModal = ({
                       id="flexSwitchCheckChecked"
                       checked={audio_video}
                       onChange={(e) => handleSetting(e, "audio video")}
+                    />
+                  </div>
+                </div>
+                <div className="d-flex justify-content-between my-3">
+                  <div>Text field</div>
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      id="flexSwitchCheckChecked"
+                      checked={text_answer}
+                      onChange={(e) => handleSetting(e, "text field")}
                     />
                   </div>
                 </div>

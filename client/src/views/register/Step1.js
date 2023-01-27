@@ -18,7 +18,7 @@ const Step1 = ({ handleStep, handleDataChange, register_data,setIsRegister }) =>
   }
   const getOTP = () => {
     axios({
-      url: "http://localhost:5000/otp/get_otp",
+      url:process.env.REACT_APP_API+"/otp/get_otp",
       method: "POST",
       data: { number: register_data.mobile },
     }).then((res) => {

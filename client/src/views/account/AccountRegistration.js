@@ -11,7 +11,7 @@ import eye from "../../assets/img/eye.svg";
 const AccountRegistration = () => {
   const [user_list, setUserList] = useState([])
   const getUserList = () =>{
-    axios.get("http://localhost:5000/user/users")
+    axios.get(process.env.REACT_APP_API+"/user/users")
     .then(res=>{
       if(res.data){
         setUserList(res.data)

@@ -1,7 +1,13 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import user from "../../assets/icons/user.svg";
 
 const FirstView = ({ handleSelect }) => {
+  const history = useHistory();
+  const handleLogin = () =>{
+    console.log("helll")
+    history.push("/login")
+  }
   return (
     <div>
       <div className="d-flex justify-content-end mt-3">
@@ -10,10 +16,10 @@ const FirstView = ({ handleSelect }) => {
             <small className="text-primary">Already have an account?</small>
           </span>{" "}
           <span className="text-primary">
-            <small>Log In</small>
+            <small onClick={handleLogin}>Log In</small>
           </span>
         </div>
-        <button className="btn btn-primary">
+        <button className="btn btn-primary" onClick={handleLogin}>
           <small>login</small>
         </button>
       </div>
