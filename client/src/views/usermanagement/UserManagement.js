@@ -17,7 +17,10 @@ const UserManagement = () => {
   const [user_role, setUserRole] = useState("");
   const [show, setShow] = useState(false)
   const getUserList = () => {
-    axios.get(process.env.REACT_APP_API+"/user/users").then((res) => {
+    const user_detail = JSON.parse( window.sessionStorage.getItem("user_data"))
+    const company_name = user_detail&&user_detail.company_name;
+    const user_role = user_detail&&user_detail.user_role;
+    axios.get(process.env.REACT_APP_API+"/user/users",{ params: { company_name: company_name, role:user_role }}).then((res) => {
       if (res.data) {
         setUserList(res.data);
       }

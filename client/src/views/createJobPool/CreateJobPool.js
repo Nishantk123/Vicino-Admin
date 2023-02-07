@@ -78,6 +78,9 @@ const CreateJobPool = () => {
       sectioning,
       questionnair,
       time_frame,
+      apply :[],
+      approve : [],
+      reject : []
     };
     axios({
       method:"POST",

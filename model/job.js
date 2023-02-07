@@ -2,8 +2,12 @@ const mongoose = require("mongoose");
 
 const jobSchema = new mongoose.Schema({
     project_name: {type:"string", default: null},
+    company_name: {type:"string", default: null},
     brand_name: {type:"string", default: null},
     locaton: { type: Array, default: [] },
+    apply: { type: Array, default: [] },
+    approved: { type: Array, default: [] },
+    reject: { type: Array, default: [] },
     research_type: {
         type:{type:"string", default: null},
         description:{type:"string", default: null}

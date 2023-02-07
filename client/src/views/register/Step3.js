@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-const Step3 = ({handleStep, handleDataChange, register_data, handleSubmit }) => {
+const Step3 = ({handleStep, handleDataChange, register_data, handleSubmit, user_role }) => {
     const history = useHistory()
     // const handleSubmit = ()=>{
     //     history.push("/login")
@@ -58,6 +58,7 @@ const Step3 = ({handleStep, handleDataChange, register_data, handleSubmit }) => 
                   class="form-control"
                   id="floatingInput"
                   value={register_data.mobile}
+                  onChange={(e)=> handleDataChange(e, "mobile")}
                 />
               </div>
               <div>

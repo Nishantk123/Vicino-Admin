@@ -39,7 +39,7 @@ const CustomSidebar = ({ toggle, hadleToggle }) => {
             >
               Dashboard
             </MenuItem>}
-            {user_role !=="freelance"&&<MenuItem
+            {<MenuItem
               icon={<i class="fas fa-fw fa-briefcase"></i>}
               onClick={() => history.push("/dashboard/job-pool")}
             >
@@ -54,13 +54,21 @@ const CustomSidebar = ({ toggle, hadleToggle }) => {
             >
               Company Profile
             </MenuItem> */}
-            {(user_role ==="client" || user_role ==="agency")&& <MenuItem
+            {(user_role !=="freelance" )&& <MenuItem
               icon={<i class="fas fa-fw fa-chart-area"></i>}
               onClick={
                 () =>  history.push("/dashboard/payment-information")
               }
             >
               Payment Information
+            </MenuItem>}
+            {(user_role !=="freelance" || true)&& <MenuItem
+              icon={<i class="fas fa-fw fa-chart-area"></i>}
+              onClick={
+                () =>  history.push("/dashboard/job-dashboard")
+              }
+            >
+              Supervisors
             </MenuItem>}
             {(user_role ==="agency")&&<MenuItem
               icon={<i class="fas fa-fw fa-chart-area"></i>}
@@ -70,7 +78,7 @@ const CustomSidebar = ({ toggle, hadleToggle }) => {
             >
               Network
             </MenuItem>}
-            {(user_role ==="admin")&&<MenuItem
+            {(user_role !=="freelance")&&<MenuItem
               icon={<i class="fas fa-fw fa-chart-area"></i>}
               onClick={
                 () =>  history.push("/dashboard/user-management")
@@ -78,7 +86,7 @@ const CustomSidebar = ({ toggle, hadleToggle }) => {
             >
               user management
             </MenuItem>}
-            {(user_role ==="admin")&&<MenuItem
+            {(user_role !=="freelance")&&<MenuItem
               icon={<i class="fas fa-fw fa-chart-area"></i>}
               onClick={
                 () =>  history.push("/dashboard/account-registration")
@@ -86,7 +94,7 @@ const CustomSidebar = ({ toggle, hadleToggle }) => {
             >
               Account Registration
             </MenuItem>}
-            {(user_role ==="admin")&&<MenuItem
+            {(user_role !=="freelance")&&<MenuItem
               icon={<i class="fas fa-fw fa-chart-area"></i>}
               onClick={
                 () =>  history.push("/dashboard/account-subscription")
@@ -94,7 +102,15 @@ const CustomSidebar = ({ toggle, hadleToggle }) => {
             >
                Subscription Account
             </MenuItem>}
-            {(user_role ==="admin")&&<MenuItem
+            {(user_role !=="freelance")&& true &&<MenuItem
+              icon={<i class="fas fa-fw fa-chart-area"></i>}
+              onClick={
+                () =>  history.push("/dashboard/report")
+              }
+            >
+               Report
+            </MenuItem>}
+            {(user_role !=="freelance")&&<MenuItem
               icon={<i class="fas fa-fw fa-chart-area"></i>}
               onClick={
                 () =>  history.push("/dashboard/account-billing")

@@ -116,7 +116,7 @@ const Survey = () => {
     );
   };
   const getQuestionairUI = (q_data, page = 0) => {
-    let all_op = q_data.option;
+    let all_op = q_data&&q_data.option;
     if (q_data.answer) {
       return (
         <div>
@@ -187,7 +187,7 @@ const Survey = () => {
       })
       .then(res=>{
         console.log(res)
-        setQuestionStep("done")
+        setStep("done")
 
       })
     }
@@ -214,8 +214,11 @@ const Survey = () => {
   const getDoneUI = () =>{
     return(
       <div className="container">
-        
-        <button></button>
+
+          <h3 className="text-primary text-center">Survey submitted success</h3>
+        {/* <button>
+                
+        </button> */}
       </div>
     )
   }

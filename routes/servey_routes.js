@@ -21,11 +21,12 @@ router.post("/servey", async (req, res) => {
     
 })
 
-router.get("/questionnair", async(req,res)=>{
+router.get("/servey/:id", async(req,res)=>{
     let query = req.query;
     let page = query.page;
     let per_page = query.per_page;
-    let serveyData = await Servey.find()
+    const job_id = req.params.id;
+    let serveyData = await Servey.find({"job_id": job_id })
     .limit(Number(per_page))
     .skip(Number(per_page) * (Number(page) - 1))
     .sort("desc");

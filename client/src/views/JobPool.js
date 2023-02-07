@@ -10,29 +10,38 @@ import calender from "../assets/img/calender.png";
 import icon_reports from "../assets/img/icon_reports.png";
 import { useHistory } from "react-router-dom";
 const JobPool = () => {
-  const count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const history = useHistory()
+  const history = useHistory();
   const [job_list, setJobList] = useState([]);
 
+  const user_detail = JSON.parse(window.sessionStorage.getItem("user_data"));
+  const company_name = user_detail && user_detail.company_name;
+  const user_role = user_detail && user_detail.user_role;
+
   const getjobPool = () => {
-    axios.get(process.env.REACT_APP_API+"/job/get_job").then((res) => {
-      console.log(res);
-      if (res.data) {
-        setJobList(res.data);
-      }
-    });
+    const user_detail = JSON.parse(window.sessionStorage.getItem("user_data"));
+    const company_name = user_detail && user_detail.company_name;
+    const user_role = user_detail && user_detail.user_role;
+    axios
+      .get(process.env.REACT_APP_API + "/job/get_job", {
+        params: { company_name: company_name, role: user_role },
+      })
+      .then((res) => {
+        if (res.data) {
+          setJobList(res.data);
+        }
+      });
   };
   useEffect(() => {
     getjobPool();
   }, []);
 
-  const handleCreateJob = () =>{
-    history.push("/dashboard/create-job-pool")
-  }
-  const handleApplyJob = (data) =>{
-    console.log(data)
-    history.push("/dashboard/job/"+data._id)
-  }
+  const handleCreateJob = () => {
+    history.push("/dashboard/create-job-pool");
+  };
+  const handleApplyJob = (data) => {
+    console.log(data);
+    history.push("/dashboard/job/" + data._id);
+  };
   // let sample_size = 0;
   // let sampling_range = 0;
   // job_list.length>0&&job_list.forEach((d,n)=>{
@@ -44,32 +53,33 @@ const JobPool = () => {
   //     sample_size = sample_size + Number(price);
   //     sampling_range = sampling_range + Number(job_range);
   //   })
-
   // })
-  const getSamplePrice = (data) =>{
+  const getSamplePrice = (data) => {
     let sample_size = 0;
     const job_sampling = data.sectioning;
-    const sampling_keys = Object.keys(job_sampling)
-    sampling_keys.length>0&&sampling_keys.forEach((s)=>{
-      let price = job_sampling[s].sample_range;
-      let job_range = job_sampling[s].sample_size;
-      sample_size = sample_size + Number(price);
-      // sampling_range = sampling_range + Number(job_range);
-  })
-  return sample_size;
-}
-const getSampleSize = (data) =>{
-  let sampling_range = 0;
-  const job_sampling = data.sectioning;
-  const sampling_keys = Object.keys(job_sampling)
-  sampling_keys.length>0&&sampling_keys.forEach((s)=>{
-    let price = job_sampling[s].sample_range;
-    let job_range = job_sampling[s].sample_size;
-    // sample_size = sample_size + Number(price);
-    sampling_range = sampling_range + Number(job_range);
-})
-  return sampling_range;
-}
+    const sampling_keys = Object.keys(job_sampling);
+    sampling_keys.length > 0 &&
+      sampling_keys.forEach((s) => {
+        let price = job_sampling[s].sample_range;
+        let job_range = job_sampling[s].sample_size;
+        sample_size = sample_size + Number(price);
+        // sampling_range = sampling_range + Number(job_range);
+      });
+    return sample_size;
+  };
+  const getSampleSize = (data) => {
+    let sampling_range = 0;
+    const job_sampling = data.sectioning;
+    const sampling_keys = Object.keys(job_sampling);
+    sampling_keys.length > 0 &&
+      sampling_keys.forEach((s) => {
+        let price = job_sampling[s].sample_range;
+        let job_range = job_sampling[s].sample_size;
+        // sample_size = sample_size + Number(price);
+        sampling_range = sampling_range + Number(job_range);
+      });
+    return sampling_range;
+  };
   // console.log(sample_size, sampling_range)
   // const job_sampling = job_list.sectioning;
   // console.log
@@ -98,7 +108,11 @@ const getSampleSize = (data) =>{
             <div div className="border-left-1 ">
               <img src={feature} className="ms-3 d-none" />
               <img src={menu} className="mx-2" />
-              <dib className="btn btn-primary" onClick={handleCreateJob}>+ Create Job</dib>
+              {user_role !== "freelance" && (
+                <dib className="btn btn-primary" onClick={handleCreateJob}>
+                  + Create Job
+                </dib>
+              )}
             </div>
           </div>
         </div>
@@ -124,9 +138,12 @@ const getSampleSize = (data) =>{
                       </div>
                       <div className="p-2">
                         <h6 className="text-primary">{data.project_name}</h6>
-                        <small>{"Published on " +  moment(
-                                data.created_at&&data.created_at
-                              ).format("L")}</small>
+                        <small>
+                          {"Published on " +
+                            moment(data.created_at && data.created_at).format(
+                              "L"
+                            )}
+                        </small>
                         <div className="d-flex my-2">
                           <img src={location} className="job-card-icon" />
                           <div className="mx-2">
@@ -171,7 +188,7 @@ const getSampleSize = (data) =>{
                     <div className="d-flex justify-content-between">
                       <div className="">
                         <small>price offer for job</small>
-                        <div>{"₹"+ getSamplePrice(data) + "/- + GST" }</div>
+                        <div>{"₹" + getSamplePrice(data) + "/- + GST"}</div>
                       </div>
                       <div className="">
                         <small>sample size</small>
@@ -179,7 +196,9 @@ const getSampleSize = (data) =>{
                       </div>
                       <div>
                         <div className="btn btn-primary">
-                          <small onClick={()=>handleApplyJob(data)}>Apply for job</small>
+                          <small onClick={() => handleApplyJob(data)}>
+                            Apply for job
+                          </small>
                         </div>
                       </div>
                     </div>

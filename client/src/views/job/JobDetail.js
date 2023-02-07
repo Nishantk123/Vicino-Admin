@@ -10,7 +10,9 @@ const Jobdetail = () => {
   const params = useParams();
   const history= useHistory();
   console.log(params);
-  const getUserDeail = () => {
+  const user_detail = JSON.parse(window.sessionStorage.getItem("user_data"));
+  const user_email = user_detail && user_detail.email;
+  const getJobDetail = () => {
     axios.get(process.env.REACT_APP_API+"/job/get_job/" + params.id).then((res) => {
       if (res.data) {
         setJobDetail(res.data);
@@ -18,7 +20,7 @@ const Jobdetail = () => {
     });
   };
   useEffect(() => {
-    getUserDeail();
+    getJobDetail();
   }, []);
 
   const handleTab = (name) => {
@@ -38,11 +40,25 @@ const Jobdetail = () => {
       sampling_range = sampling_range + Number(job_range);
     });
 
-    const handleApplySurvey = () =>{
+    const handleTakeSurvey = () =>{
         console.log(job_detail)
         history.push("/dashboard/job/"+job_detail&&job_detail._id+"/survey")
       }
-
+    const handleApplySurvey = () =>{
+      const data = {
+        type: "apply",
+        user_email: user_email,
+        job_id: job_detail&& job_detail._id,
+        status: "",
+      };
+      axios({
+        method: "POST",
+        url: process.env.REACT_APP_API + "/job/update_job",
+        data: data,
+      }).then((res) => {
+        getJobDetail();
+      });
+    }
   const jobDetailUI = () => {
     return (
       <div>
@@ -95,6 +111,9 @@ const Jobdetail = () => {
     );
   };
   const sampleCoverageArea = () => {
+    const apply_list = job_detail&& job_detail.apply;
+    const approved_list = job_detail && job_detail.approved;
+    const reject_list = job_detail && job_detail.reject;
     return (
       <div>
         <div className="d-flex justify-content-between">
@@ -102,9 +121,9 @@ const Jobdetail = () => {
           <div className="">{"Total Survey : " + 1}</div>
         </div>
         <div className="d-flex justify-content-center my-3">
-          <button className="btn btn-warning mx-1">Pending for approval</button>
-          <button className="btn btn-success mx-1">Accepted Survey</button>
-          <button className="btn btn-danger mx-1">Rejected for approval</button>
+          {apply_list.includes(user_email) &&<button className="btn btn-warning mx-1">Pending for approval</button>}
+          {approved_list.includes(user_email) &&<button className="btn btn-success mx-1">Accepted Survey</button>}
+          {reject_list.includes(user_email) &&<button className="btn btn-danger mx-1">Rejected for approval</button>}
         </div>
 
         <div className="d-flex my-3">
@@ -119,7 +138,11 @@ const Jobdetail = () => {
           </div>
         </div>
         <div className="my-3">
-          <button className="btn btn-primary w-100" onClick={handleApplySurvey}>Take Survey</button>
+          {
+           approved_list.includes(user_email) ?<button className="btn btn-primary w-100" onClick={handleTakeSurvey}>Take Survey</button>:
+           <button className="btn btn-primary w-100" onClick={handleApplySurvey}>Apply</button>
+          }
+          
         </div>
       </div>
     );

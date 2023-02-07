@@ -11,7 +11,10 @@ import eye from "../../assets/img/eye.svg";
 const AccountRegistration = () => {
   const [user_list, setUserList] = useState([])
   const getUserList = () =>{
-    axios.get(process.env.REACT_APP_API+"/user/users")
+    const user_detail = JSON.parse( window.sessionStorage.getItem("user_data"))
+    const company_name = user_detail&&user_detail.company_name;
+    const user_role = user_detail&&user_detail.user_role;
+    axios.get(process.env.REACT_APP_API+"/user/users",{ params: { company_name: company_name, role:user_role }})
     .then(res=>{
       if(res.data){
         setUserList(res.data)
@@ -145,7 +148,7 @@ const AccountRegistration = () => {
                   <tr>
                     <td>{index + 1}</td>
                     <td>{data.job_id}</td>
-                    <td>{data.username}</td>
+                    <td>{data.first_name}</td>
                     <td>{data.user_type}</td>
                     <td>{data.reg_date}</td>
                     <td>{data.company_name}</td>

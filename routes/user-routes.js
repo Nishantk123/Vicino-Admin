@@ -167,7 +167,15 @@ router.get("/users", async(req,res)=>{
   let query = req.query;
   let page = query.page;
   let per_page = query.per_page;
-  let userData = await User.find()
+  let company_name = query.company_name;
+  let role = query.user_role
+  const queryObj = {};
+  if (role === "super_admin" ) {
+    console.log("all jobs");
+  } else {
+    queryObj["company_name"] = company_name;
+  }
+  let userData = await User.find(queryObj)
   .limit(Number(per_page))
   .skip(Number(per_page) * (Number(page) - 1))
   .sort("desc");

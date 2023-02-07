@@ -21,6 +21,8 @@ import AccountSubscription from "../account/AccountSubscription";
 import AccountBilling from "../account/AcountBilling";
 import Jobdetail from "../job/JobDetail";
 import Survey from "../job/Survey";
+import JobDashboard from "../job/JobDashboard";
+import Report from "../Report";
 
 const Dashboard = () => {
   const [toggle, setToggle] = useState(false);
@@ -79,6 +81,12 @@ const Dashboard = () => {
             </Route>
             <Route exact path={`${path}/job/:id/survey`}>
               <Survey  />
+            </Route>
+            <Route exact path={`${path}/job-dashboard`}>
+              <JobDashboard  />
+            </Route>
+            <Route exact path={`${path}/report`}>
+              <Report />
             </Route>
 
 

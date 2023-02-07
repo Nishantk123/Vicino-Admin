@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Select from "react-select";
 
-const Step2 = ({ handleStep, handleDataChange, register_data }) => {
+const Step2 = ({ handleStep, handleDataChange, register_data, user_role }) => {
   const [active_tab, setActiveTab] = useState("COMPANY REGISTRATION");
   const [is_valid_email, setValidEmail] = useState(false);
   const [is_pan_valid, setPanValid] = useState(false);

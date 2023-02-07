@@ -52,11 +52,13 @@ const Register = () => {
 
   const handleSelect = (role) => {
     if(role ==="freelance"){
-      history.push("/login")
+      // history.push("/login")
+      setStep(1)
+    }else{
+      setStep(1);
     }
     setIsRegister(true);
     setUserRole(role);
-    setStep(1);
   };
   const handleStep = (number) => {
     setStep(number);
@@ -220,6 +222,7 @@ const Register = () => {
                 handleDataChange={handleDataChange}
                 register_data={register_data}
                 setIsRegister={setIsRegister}
+                user_role={user_role}
               />
             )}
             {step === 2 && (
@@ -227,6 +230,7 @@ const Register = () => {
                 handleStep={handleStep}
                 handleDataChange={handleDataChange}
                 register_data={register_data}
+                user_role={user_role}
               />
             )}
             {step === 3 && (
@@ -235,6 +239,7 @@ const Register = () => {
                 handleDataChange={handleDataChange}
                 register_data={register_data}
                 handleSubmit={handleSubmit}
+                user_role={user_role}
               />
             )}
           </div>

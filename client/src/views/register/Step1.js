@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import OTPModal from "./OTPModal";
 import axios from "axios";
 
-const Step1 = ({ handleStep, handleDataChange, register_data,setIsRegister }) => {
+const Step1 = ({ handleStep, handleDataChange, register_data, setIsRegister, user_role }) => {
   const [open, setOpen] = useState(false);
   const [price_select, setPriceSelect] = useState("");
   const [isVerified, setIsVerified] = useState(false);
@@ -33,7 +33,11 @@ const Step1 = ({ handleStep, handleDataChange, register_data,setIsRegister }) =>
     setIsVerified(true);
   };
   const handleSubmit = () => {
+    if(user_role ==="freelance"){
+    handleStep(3);
+    }else{
     handleStep(2);
+    }
     setOpen(false);
   };
   const getPlanUI = () => {

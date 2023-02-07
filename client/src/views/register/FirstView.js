@@ -5,7 +5,6 @@ import user from "../../assets/icons/user.svg";
 const FirstView = ({ handleSelect }) => {
   const history = useHistory();
   const handleLogin = () =>{
-    console.log("helll")
     history.push("/login")
   }
   return (
