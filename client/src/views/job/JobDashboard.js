@@ -43,6 +43,7 @@ const JobDashboard = () => {
     });
   };
   console.log(job_list);
+  const apply_job_list = job_list.length>0&&job_list.filter(d=> d.apply&&d.apply.length>0&&d)
   return (
     <div className="container">
       <table className="table table-bordered">
@@ -53,9 +54,9 @@ const JobDashboard = () => {
           <th>Action</th>
         </thead>
         <tbody>
-          {job_list.length > 0 &&
-            job_list.map((job, index) => {
-              return job.apply && job.apply.length > 0 ? (
+          {apply_job_list.length > 0 ?
+            apply_job_list.map((job, index) => {
+              return job.apply && job.apply.length > 0 && (
                 job.apply.map((job_apply, index) => {
                   return (
                     <tr>
@@ -83,12 +84,13 @@ const JobDashboard = () => {
                     </tr>
                   );
                 })
-              ) : (
-                <tr>
-                  <td colSpan={4} className="text-center">No data found</td>
-                </tr>
-              );
-            })}
+              ) 
+            })
+            : (
+              <tr>
+                <td colSpan={4} className="text-center">No data found</td>
+              </tr>
+            )}
         </tbody>
       </table>
     </div>

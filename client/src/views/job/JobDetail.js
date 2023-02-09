@@ -13,8 +13,10 @@ const Jobdetail = () => {
   const user_detail = JSON.parse(window.sessionStorage.getItem("user_data"));
   const user_email = user_detail && user_detail.email;
   const getJobDetail = () => {
+    console.log(params.id)
     axios.get(process.env.REACT_APP_API+"/job/get_job/" + params.id).then((res) => {
       if (res.data) {
+        console.log(res.data)
         setJobDetail(res.data);
       }
     });
@@ -121,9 +123,9 @@ const Jobdetail = () => {
           <div className="">{"Total Survey : " + 1}</div>
         </div>
         <div className="d-flex justify-content-center my-3">
-          {apply_list.includes(user_email) &&<button className="btn btn-warning mx-1">Pending for approval</button>}
-          {approved_list.includes(user_email) &&<button className="btn btn-success mx-1">Accepted Survey</button>}
-          {reject_list.includes(user_email) &&<button className="btn btn-danger mx-1">Rejected for approval</button>}
+          {apply_list&&apply_list.includes(user_email) &&<button className="btn btn-warning mx-1">Pending for approval</button>}
+          {approved_list&&approved_list.includes(user_email) &&<button className="btn btn-success mx-1">Accepted Survey</button>}
+          {reject_list&&reject_list.includes(user_email) &&<button className="btn btn-danger mx-1">Rejected for approval</button>}
         </div>
 
         <div className="d-flex my-3">

@@ -56,9 +56,13 @@ const JobPool = () => {
   // })
   const getSamplePrice = (data) => {
     let sample_size = 0;
-    const job_sampling = data.sectioning;
-    const sampling_keys = Object.keys(job_sampling);
-    sampling_keys.length > 0 &&
+    const job_sampling = data&&data.sectioning;
+    let sampling_keys =[]
+    if(job_sampling){
+      console.log(job_sampling)
+      sampling_keys = job_sampling && Object.keys(job_sampling);
+    }
+    sampling_keys&&sampling_keys.length > 0 &&
       sampling_keys.forEach((s) => {
         let price = job_sampling[s].sample_range;
         let job_range = job_sampling[s].sample_size;
@@ -69,8 +73,12 @@ const JobPool = () => {
   };
   const getSampleSize = (data) => {
     let sampling_range = 0;
-    const job_sampling = data.sectioning;
-    const sampling_keys = Object.keys(job_sampling);
+    const job_sampling = data&&data.sectioning;
+    let sampling_keys= []
+    if(job_sampling){
+     sampling_keys = Object.keys(job_sampling);
+
+    }
     sampling_keys.length > 0 &&
       sampling_keys.forEach((s) => {
         let price = job_sampling[s].sample_range;
@@ -121,7 +129,7 @@ const JobPool = () => {
         {job_list.length > 0 &&
           job_list.map((data, index) => {
             return (
-              <div className="col-sm-4 my-3">
+              <div className="col-sm-4 my-3" key={index}>
                 <div className="card">
                   <div className="card-body py-0">
                     <div className="d-flex justify-content-between">
