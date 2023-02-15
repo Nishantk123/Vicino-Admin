@@ -65,7 +65,7 @@ router.get("/get_job", async (req, res) => {
 
 router.get("/get_job/:id", async (req, res) => {
   const job_id = req.params.id;
-  let job_detail = await JOB.findOne({ id: Object(job_id) });
+  let job_detail = await JOB.findOne({ _id: Object(job_id) });
   if (job_detail) {
     res.status(200).json(job_detail);
   } else {
