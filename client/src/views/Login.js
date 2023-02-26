@@ -42,7 +42,7 @@ const Login = () => {
         <div className="col-sm-8 col-md-8 col-lg-9">
           <div className="row justify-content-center">
             <div className="col-sm-6 col-md-5  top_margin">
-              <h1 className="text-gray text-center my-3">Admin Login</h1>
+              <h1 className="text-gray text-center my-3">Login</h1>
               <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="floatingInput" onChange={(e)=>setEmail(e.target.value)}/>
                 {/* <label for="floatingInput">Mobile/Email</label> */}

@@ -42,7 +42,6 @@ const JobDashboard = () => {
       getjobPool();
     });
   };
-  console.log(job_list);
   const apply_job_list = job_list.length>0&&job_list.filter(d=> d.apply&&d.apply.length>0&&d)
   return (
     <div className="container">

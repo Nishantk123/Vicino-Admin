@@ -1,58 +1,98 @@
 import React from "react";
 
-const Question = ({q_data, page}) =>{
-
-    const getQuestionUI = (q_data) =>{
-        let all_op = q_data.option
-        if(q_data.answer){
-            return(
-                <div>
-                    <h3>Q{page}. {q_data.question}</h3>
-                    <textarea className="form-control"></textarea>
-                </div>
-            )
-        }
-        if (q_data.multi_choice && !q_data.answer){
-            return(
-                <div>
-                    <h3>Q{page}. {q_data.question}</h3>
-                    {
-                      all_op.map((data,index)=>{
-                        return(
-                            <div className="px-3">
-                            <input type="checkbox"  className="my-2 me-2" />
-                            {data}
-                            </div>
-                        )
-                      })  
-                    }
-                </div>
-            )
-        }
-        else{
-            return(
-                <div>
-                    <h3> Q{page}. {q_data.question}</h3>
-                    {
-                      all_op.map((data,index)=>{
-                        return(
-                            <div className="px-3">
-                            <input type="radio" name="option"  className=" my-2 me-2" />
-                            {data}
-                            </div>
-                        )
-                      })  
-                    }
-                </div>
-            )
-        }
-    }
-    return(
+const Question = ({ q_data, page }) => {
+  const getQuestionUI = (q_data) => {
+    let all_op = q_data.option;
+    if (q_data.answer) {
+      return (
         <div>
-            {q_data&&getQuestionUI(q_data)}
+          <h3>
+            Q{page}. {q_data.question}
+          </h3>
+          <textarea className="form-control"></textarea>
         </div>
-    )
-}
+      );
+    }
+    if (q_data.multi_choice && !q_data.answer) {
+      return (
+        <div>
+          <h3>
+            Q{page}. {q_data.question}
+          </h3>
+          {all_op.map((data, index) => {
+            return (
+              <div className="px-3">
+                <input type="checkbox" className="my-2 me-2" />
+                {data}
+              </div>
+            );
+          })}
+        </div>
+      );
+    } else if (q_data.matrix) {
+        const header_data = all_op && all_op[0];
+      return (
+        <div>
+          <h3>
+            {" "}
+            Q{page}. {q_data.question}
+          </h3>
+          <table className="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                {header_data &&
+                header_data.length > 0 &&
+                header_data.map((matrix_column, index) => {
+                    return(
+                    <td className="text-center"><strong>{matrix_column}</strong></td>
 
+                    )
+                })}
+                </tr>
+            </thead>
+            <tbody>
+            {all_op.map((data, index) => {
+                if(index>0){
+                return (
+                <tr className="">
+                    <td><input type="radio" name="option" className=" my-2 me-2" /></td>
+                    {data.map((c_data,index)=>{
+                        return(
+                            <td className="text-center">{c_data}</td>
+                        )
+                    })}
+
+                </tr>
+                );
+                }})}
+
+            </tbody>
+          </table>
+           
+          
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h3>
+            {" "}
+            Q{page}. {q_data.question}
+          </h3>
+          {all_op.map((data, index) => {
+            return (
+              <div className="px-3">
+                <input type="radio" name="option" className=" my-2 me-2" />
+                {data}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+  };
+  return <div>{q_data && getQuestionUI(q_data)}</div>;
+};
 
 export default Question;

@@ -6,7 +6,7 @@ const Survey = () => {
   const [job_detail, setJobDetail] = useState({});
   const [step, setStep] = useState("declare");
   const [q_step, setQuestionStep] = useState(0);
-  const [submit, setSubmit] = useState(false)
+  const [submit, setSubmit] = useState(false);
   const [servey_detail, setServeyDetail] = useState({
     name: "",
     email: "",
@@ -15,21 +15,24 @@ const Survey = () => {
     question: [],
   });
 
-  const user_data = sessionStorage.getItem("user_data")&& JSON.parse(sessionStorage.getItem("user_data"))
+  const user_data =
+    sessionStorage.getItem("user_data") &&
+    JSON.parse(sessionStorage.getItem("user_data"));
 
   const getUserDeail = () => {
     let serData = { ...servey_detail };
-    axios.get(process.env.REACT_APP_API+"/job/get_job/" + params.id).then((res) => {
-      if (res.data) {
-        console.log(res.data);
-        setJobDetail(res.data);
-        if (res.data.questionnair) {
-          serData["question"] = res.data.questionnair;
-          serData["job_id"] = res.data._id;
-          setServeyDetail(serData);
+    axios
+      .get(process.env.REACT_APP_API + "/job/get_job/" + params.id)
+      .then((res) => {
+        if (res.data) {
+          setJobDetail(res.data);
+          if (res.data.questionnair) {
+            serData["question"] = res.data.questionnair;
+            serData["job_id"] = res.data._id;
+            setServeyDetail(serData);
+          }
         }
-      }
-    });
+      });
   };
   useEffect(() => {
     getUserDeail();
@@ -39,39 +42,36 @@ const Survey = () => {
       setStep("user-form");
     }
   };
-  const handleChange = (e, name="", question="",page=0) => {
+  const handleChange = (e, name = "", question = "", page = 0) => {
     let serData = { ...servey_detail };
 
-    if (question !=="") {
+    if (question !== "") {
       let ser_q = serData.question;
       let q_obj = {
-        "question":question,
-        "answer": []
-      }
-      if(name ==="radio"){
-        console.log("")
-        let radio_answer =q_obj.answer;
+        question: question,
+        answer: [],
+      };
+      if (name === "radio") {
+        console.log("");
+        let radio_answer = q_obj.answer;
         radio_answer.push(e);
         q_obj["answer"] = radio_answer;
-      }
-      else if(name==="check"){
-        let check_answer =q_obj.answer;
+      } else if (name === "check") {
+        let check_answer = q_obj.answer;
         check_answer.push(e);
         q_obj["answer"] = check_answer;
-      }
-      else{
-        let text_answer =q_obj.answer;
+      } else {
+        let text_answer = q_obj.answer;
         text_answer.push(e.target.value);
         q_obj["answer"] = text_answer;
       }
       // ser_q.push(q_obj)
-      ser_q[page]["servey_detail"] = q_obj
+      ser_q[page]["servey_detail"] = q_obj;
       serData["question"] = ser_q;
-
     } else {
       serData[name] = e.target.value;
     }
-
+    // console.log(serData)
     setServeyDetail(serData);
   };
 
@@ -116,14 +116,18 @@ const Survey = () => {
     );
   };
   const getQuestionairUI = (q_data, page = 0) => {
-    let all_op = q_data&&q_data.option;
+    console.log(q_data)
+    let all_op = q_data && q_data.option;
     if (q_data.answer) {
       return (
         <div>
           <h3>
-            Q{page}. {q_data.question}
+            Q{page + 1}. {q_data.question}
           </h3>
-          <textarea className="form-control" onChange={(e)=>handleChange(e,"text",q_data.question,page)}></textarea>
+          <textarea
+            className="form-control"
+            onChange={(e) => handleChange(e, "text", q_data.question, page)}
+          ></textarea>
         </div>
       );
     }
@@ -131,16 +135,71 @@ const Survey = () => {
       return (
         <div>
           <h3>
-            Q{page}. {q_data.question}
+            Q{page +1}. {q_data.question}
           </h3>
           {all_op.map((data, index) => {
             return (
               <div className="px-3">
-                <input type="checkbox" className="my-2 me-2" onChange={(e)=>handleChange(e,"check",q_data.question,page)}/>
+                <input
+                  type="checkbox"
+                  className="my-2 me-2"
+                  onChange={(e) =>
+                    handleChange(e, "check", q_data.question, page)
+                  }
+                />
                 {data}
               </div>
             );
           })}
+        </div>
+      );
+    } else if (q_data.matrix) {
+      const header_data = all_op && all_op[0];
+      return (
+        <div>
+          <h3>
+            {" "}
+            Q{page +1}. {q_data.question}
+          </h3>
+          <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th></th>
+                {header_data &&
+                  header_data.length > 0 &&
+                  header_data.map((matrix_column, index) => {
+                    return (
+                      <td className="text-center">
+                        <strong>{matrix_column}</strong>
+                      </td>
+                    );
+                  })}
+              </tr>
+            </thead>
+            <tbody>
+              {all_op.map((data, index) => {
+                if (index > 0) {
+                  return (
+                    <tr className="">
+                      <td>
+                        <input
+                          type="radio"
+                          name="option"
+                          className=" my-2 me-2"
+                          onChange={(e) =>
+                            handleChange(data, "radio", q_data.question, page)
+                          }
+                        />
+                      </td>
+                      {data.map((c_data, index) => {
+                        return <td className="text-center">{c_data}</td>;
+                      })}
+                    </tr>
+                  );
+                }
+              })}
+            </tbody>
+          </table>
         </div>
       );
     } else {
@@ -148,12 +207,19 @@ const Survey = () => {
         <div>
           <h3>
             {" "}
-            Q{page}. {q_data.question}
+            Q{page + 1}. {q_data.question}
           </h3>
           {all_op.map((data, index) => {
             return (
               <div className="px-3">
-                <input type="radio" name="option" className=" my-2 me-2" onChange={(e)=>handleChange(data,"radio",q_data.question,page)} />
+                <input
+                  type="radio"
+                  name="option"
+                  className=" my-2 me-2"
+                  onChange={(e) =>
+                    handleChange(data, "radio", q_data.question, page)
+                  }
+                />
                 {data}
               </div>
             );
@@ -166,30 +232,29 @@ const Survey = () => {
   const handleQuestionSubmit = () => {
     let serData = { ...servey_detail };
     let question_list = serData.question;
+    console.log("test")
     if (q_step < (question_list && question_list.length - 1)) {
       setQuestionStep(q_step + 1);
     } else {
       console.log("submit");
       let data = {
         name: serData.name,
-        email:serData.email,
-        gender:serData.gender,
+        email: serData.email,
+        gender: serData.gender,
         dob: serData.dob,
         question: serData.question,
         user_id: user_data._id,
-        job_id:serData.job_id
-
-      }
+        job_id: serData.job_id,
+      };
+      // console.log(data)
       axios({
-        method:"POST",
+        method: "POST",
         data: data,
-        url:process.env.REACT_APP_API+"/servey/servey"
-      })
-      .then(res=>{
-        console.log(res)
-        setStep("done")
-
-      })
+        url: process.env.REACT_APP_API + "/servey/servey",
+      }).then((res) => {
+        console.log(res);
+        setStep("done");
+      });
     }
   };
 
@@ -211,18 +276,17 @@ const Survey = () => {
       </div>
     );
   };
-  const getDoneUI = () =>{
-    return(
+  const getDoneUI = () => {
+    return (
       <div className="container">
-
-          <h3 className="text-primary text-center">Survey submitted success</h3>
+        <h3 className="text-primary text-center">Survey submitted success</h3>
         {/* <button>
                 
         </button> */}
       </div>
-    )
-  }
-  console.log(servey_detail)
+    );
+  };
+  // console.log(servey_detail);
   return (
     <div className="container">
       {step === "declare" && (

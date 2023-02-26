@@ -49,7 +49,7 @@ const ResearchType = ({ research_type, setResearchType }) => {
                     <div className="card">
                       <div className="card-header d-flex justify-content-between">
                         <div className="job-card-header">{data.type}</div>
-                        <input type="checkbox" name="Online Surveys" onChange={()=>handleOnChange(data)} />
+                        <input type="radio" name="Online Surveys" onChange={()=>handleOnChange(data)} />
                       </div>
                       <div className="card-body">
                         <small className="text-center">

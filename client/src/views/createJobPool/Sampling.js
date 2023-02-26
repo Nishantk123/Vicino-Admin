@@ -65,7 +65,14 @@ const Sampling = ({sampling,setSampling}) => {
                     <div className="col-sm-4 my-2">
                     <div className="card" onClick={()=>handleSampling(data)}>
                       <div className="card-header d-flex justify-content-between">
+                        <div className="d-flex">
+                        <input
+                            type="radio"
+                            name="Online Surveys"
+                            onChange={() => handleSampling(data)}
+                          />
                         <div className="job-card-header">{data.type}</div>
+                        </div>
                         <img src={speaker} />
                       </div>
                       <div className="card-body">

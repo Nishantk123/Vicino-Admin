@@ -252,8 +252,8 @@ const Step2 = ({ handleStep, handleDataChange, register_data, user_role }) => {
         <div className="mb-2">
           <label for="floatingInput">MSME</label>
           <div className="">
-            <input type="radio" /> Yes
-            <input type="radio" className="ms-3" /> No
+            <input type="radio"  name="msme"/> Yes
+            <input type="radio" name="msme"className="ms-3" /> No
           </div>
         </div>
         <div class="mb-2">
@@ -285,7 +285,7 @@ const Step2 = ({ handleStep, handleDataChange, register_data, user_role }) => {
           <button
             className="btn btn-primary mt-3"
             onClick={() => handleNext("COMPANY ADDRESS")}
-            disabled={!is_gstn_valid||!is_pan_valid||!is_valid_email}
+            disabled={!is_pan_valid||!is_valid_email}
           >
             Next
           </button>

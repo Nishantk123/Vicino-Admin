@@ -129,7 +129,7 @@ const JobPool = () => {
         {job_list.length > 0 &&
           job_list.map((data, index) => {
             return (
-              <div className="col-sm-4 my-3" key={index}>
+              <div className="col-sm-6 col-md-6 col-lg-4 my-3" key={index}>
                 <div className="card">
                   <div className="card-body py-0">
                     <div className="d-flex justify-content-between">

@@ -80,7 +80,7 @@ router.post("/update_job", async (req, res) => {
     if (type === "apply") {
       let apply_list = [...job_detail.apply];
       apply_list.push(user_email);
-      await JOB.updateOne({ id: Object(job_id) }, { apply: apply_list });
+      await JOB.updateOne({ _id: Object(job_id) }, { apply: apply_list });
     }
     if (type === "approved") {
       if (status === "approved") {
@@ -89,7 +89,7 @@ router.post("/update_job", async (req, res) => {
         apply_list =
           job_detail.apply && job_detail.apply.filter((d) => d !== user_email);
         await JOB.updateOne(
-          { id: Object(job_id) },
+          { _id: Object(job_id) },
           { approved: approved_list, apply: apply_list }
         );
       } else {
@@ -98,7 +98,7 @@ router.post("/update_job", async (req, res) => {
         apply_list =
           job_detail.apply && job_detail.apply.filter((d) => d !== user_email);
         await JOB.updateOne(
-          { id: Object(job_id) },
+          { _id: Object(job_id) },
           { reject: reject_list, apply: apply_list }
         );
       }

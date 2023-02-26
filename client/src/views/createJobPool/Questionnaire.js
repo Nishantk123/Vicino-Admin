@@ -40,7 +40,7 @@ const Questionnaire = ({setQuestionnair}) => {
             className="btn btn-primary w-100"
             onClick={() => setOpenModal(true)}
           >
-            + Develop Your Questionnaire
+           {question_list.length>0?"Add new question" :"+ Develop Your Questionnaire"}
           </button>
         </div>
         <div className="col-sm-3">
