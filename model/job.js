@@ -48,7 +48,8 @@ const jobSchema = new mongoose.Schema({
         option: [],
         multi_choice:{type:Boolean, default: false},
         require:{type:Boolean, default: false},
-        matrix:{type:Boolean, default: false},        
+        matrix:{type:Boolean, default: false},
+        multi_matrix:{type:Boolean, default: false}     
     }
     ],
     time_frame:{
