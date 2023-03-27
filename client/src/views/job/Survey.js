@@ -42,9 +42,54 @@ const Survey = () => {
       setStep("user-form");
     }
   };
+  const removeCircular = (obj) => {
+    let cache = [];
+    let str = JSON.stringify(obj, function (key, value) {
+      if (typeof value === "object" && value !== null) {
+        if (cache.indexOf(value) !== -1) {
+          // Circular reference found, discard key
+          return;
+        }
+        // Store value in our collection
+        cache.push(value);
+      }
+      return value;
+    });
+    cache = null; // reset the cache
+    return str;
+  };
+  const handleMatrixChange = (e, question, page, index, c_index, type) =>{
+      let serData = { ...servey_detail };
+      let ser_q = serData.question; 
+      let matrix_ser_q = ser_q[page]
+      let matrix_option = matrix_ser_q.option;
+      let q_obj = {
+        question: question,
+        answer: matrix_option,
+      };
+      if(type ==="multi"){
+        q_obj.answer[index][c_index] = true
+      }else{
+      q_obj.answer[index].map((ans, ans_index)=>{
+        if(ans_index>0){
+            if((ans_index) ===c_index){
+              q_obj.answer[index][ans_index] = true;
+            }else{
+              q_obj.answer[index][ans_index] = false;
+            }          
+        }else{
+          // q_obj.answer[index][0]= 
+        }
+       
+      })
+    }
+      console.log(q_obj)
+      ser_q[page]["servey_detail"] = q_obj;
+      setServeyDetail(serData);
+  }
   const handleChange = (e, name = "", question = "", page = 0) => {
+    console.log(name)
     let serData = { ...servey_detail };
-
     if (question !== "") {
       let ser_q = serData.question;
       let q_obj = {
@@ -52,12 +97,11 @@ const Survey = () => {
         answer: [],
       };
       if (name === "radio") {
-        console.log("");
         let radio_answer = q_obj.answer;
         radio_answer.push(e);
         q_obj["answer"] = radio_answer;
       } else if (name === "check") {
-        let check_answer = q_obj.answer;
+        let check_answer = [...q_obj.answer];
         check_answer.push(e);
         q_obj["answer"] = check_answer;
       } else {
@@ -68,10 +112,12 @@ const Survey = () => {
       // ser_q.push(q_obj)
       ser_q[page]["servey_detail"] = q_obj;
       serData["question"] = ser_q;
+      // console.log(serData)
     } else {
       serData[name] = e.target.value;
     }
-    // console.log(serData)
+    console.log(serData);
+    // const serresult = JSON.stringify(serData, getCircularReplacer());
     setServeyDetail(serData);
   };
 
@@ -116,7 +162,7 @@ const Survey = () => {
     );
   };
   const getQuestionairUI = (q_data, page = 0) => {
-    console.log(q_data)
+    // console.log(q_data)
     let all_op = q_data && q_data.option;
     if (q_data.answer) {
       return (
@@ -135,7 +181,7 @@ const Survey = () => {
       return (
         <div>
           <h3>
-            Q{page +1}. {q_data.question}
+            Q{page + 1}. {q_data.question}
           </h3>
           {all_op.map((data, index) => {
             return (
@@ -144,7 +190,7 @@ const Survey = () => {
                   type="checkbox"
                   className="my-2 me-2"
                   onChange={(e) =>
-                    handleChange(e, "check", q_data.question, page)
+                    handleChange(data, "check", q_data.question, page)
                   }
                 />
                 {data}
@@ -159,12 +205,11 @@ const Survey = () => {
         <div>
           <h3>
             {" "}
-            Q{page +1}. {q_data.question}
+            Q{page + 1}. {q_data.question}
           </h3>
           <table className="table table-bordered">
             <thead>
               <tr>
-                <th></th>
                 {header_data &&
                   header_data.length > 0 &&
                   header_data.map((matrix_column, index) => {
@@ -181,18 +226,38 @@ const Survey = () => {
                 if (index > 0) {
                   return (
                     <tr className="">
-                      <td>
-                        <input
-                          type="radio"
-                          name="option"
-                          className=" my-2 me-2"
-                          onChange={(e) =>
-                            handleChange(data, "radio", q_data.question, page)
+                      {data.map((c_data, c_index) => {
+                        if (c_index === 0) {
+                          return <td className="text-center">{c_data}</td>;
+                        } else {
+                          if(q_data.multi_matrix){
+                            return (
+                              <td className="text-center">
+                                <input
+                                  type="checkbox"
+                                  name={data[0]}
+                                  onChange={(e) =>
+                                    handleMatrixChange(e,q_data.question,page, index,c_index,"multi")
+                                  }
+                                />
+                              </td>
+                            );
+                          }else{
+                            return (
+                              <td className="text-center">
+                                <input
+                                  type="radio"
+                                  name={data[0]}
+                                  onChange={(e) =>
+                                    handleMatrixChange(e,q_data.question,page, index,c_index,"radio")
+                                  }
+                                />
+                              </td>
+                            );
                           }
-                        />
-                      </td>
-                      {data.map((c_data, index) => {
-                        return <td className="text-center">{c_data}</td>;
+                         
+                        }
+                        // return <td className="text-center" key={index}>{c_data}</td>;
                       })}
                     </tr>
                   );
@@ -232,27 +297,26 @@ const Survey = () => {
   const handleQuestionSubmit = () => {
     let serData = { ...servey_detail };
     let question_list = serData.question;
-    console.log("test")
     if (q_step < (question_list && question_list.length - 1)) {
       setQuestionStep(q_step + 1);
     } else {
-      console.log("submit");
+      // let yodata =  JSON.stringify(data, getCircularReplacer());
+      let final_data = JSON.parse(removeCircular(serData));
       let data = {
-        name: serData.name,
-        email: serData.email,
-        gender: serData.gender,
-        dob: serData.dob,
-        question: serData.question,
+        name: final_data.name,
+        email: final_data.email,
+        gender: final_data.gender,
+        dob: final_data.dob,
+        question: final_data.question,
         user_id: user_data._id,
-        job_id: serData.job_id,
+        job_id: final_data.job_id,
       };
-      // console.log(data)
+      console.log(data);
       axios({
         method: "POST",
         data: data,
         url: process.env.REACT_APP_API + "/servey/servey",
       }).then((res) => {
-        console.log(res);
         setStep("done");
       });
     }
@@ -286,7 +350,7 @@ const Survey = () => {
       </div>
     );
   };
-  // console.log(servey_detail);
+  console.log(servey_detail);
   return (
     <div className="container">
       {step === "declare" && (

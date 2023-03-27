@@ -13,12 +13,24 @@ const Questionnaire = ({setQuestionnair}) => {
   const handleCloseQuestion = () => {
     setOpenModal(false);
   };
-  const handleAddQuestion = (data) => {
+  const handleAddQuestion = (data, type, index) => {
     let q_list = [...question_list];
-    q_list.push(data);
+    if(type==="edit_question"){
+      q_list[index] = data
+    }else{
+      q_list.push(data);
+    }
     setQuestionList(q_list);
     setQuestionnair(q_list)
   };
+  const handleDeleteQuestion = (index)=>{
+    let q_list = [...question_list];
+     q_list = q_list.splice(index,1);
+    console.log(q_list)
+    setQuestionList(q_list);
+    setQuestionnair(q_list)
+    
+  }
   const handlePagechange = (event, page) => {
     console.log(page);
     setPage(page);
@@ -67,8 +79,10 @@ const Questionnaire = ({setQuestionnair}) => {
 
       <CreateQuestionModal
         open={open_modal}
+        question_list={question_list}
         handleCloseQuestion={handleCloseQuestion}
         handleAddQuestion={handleAddQuestion}
+        handleDeleteQuestion={handleDeleteQuestion}
       />
     </div>
   );

@@ -40,13 +40,11 @@ const Question = ({ q_data, page }) => {
           <table className="table table-bordered">
             <thead>
                 <tr>
-                    <th></th>
                 {header_data &&
                 header_data.length > 0 &&
                 header_data.map((matrix_column, index) => {
                     return(
                     <td className="text-center"><strong>{matrix_column}</strong></td>
-
                     )
                 })}
                 </tr>
@@ -56,11 +54,28 @@ const Question = ({ q_data, page }) => {
                 if(index>0){
                 return (
                 <tr className="">
-                    <td><input type="radio" name="option" className=" my-2 me-2" /></td>
                     {data.map((c_data,index)=>{
-                        return(
+                        if(index ===0){
+                          return(
                             <td className="text-center">{c_data}</td>
                         )
+                        }else{
+                          if(q_data.multi_matrix){
+                            return(
+                              <td className="text-center">
+                              <input type="checkbox" name ={data[0]} />
+                            </td>
+                            )
+                          }else{
+                            return(
+                              <td className="text-center">
+                                <input type="radio" name ={data[0]} />
+                              </td>
+                          )
+                          }
+                          
+                        }
+                        
                     })}
 
                 </tr>
