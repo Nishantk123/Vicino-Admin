@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import _ from 'lodash'
 import { useParams } from "react-router-dom";
 const Survey = () => {
   const params = useParams();
@@ -199,7 +200,59 @@ const Survey = () => {
           })}
         </div>
       );
-    } else if (q_data.matrix) {
+    } else if(q_data.date_type){
+      return (
+        <div>
+          <h3>
+            Q{page}. {q_data.question}
+          </h3>
+          <input className="form-control" type="date"/>
+        </div>
+      );
+    }
+    else if(q_data.sec){
+      return(
+        <div>
+          <h3>
+            Q{page}. {q_data.question}
+          </h3>
+            <div className="row">
+              <div className="col-sm-6">
+                <div><strong>{q_data&&q_data.sec_row_heading}</strong></div>
+                <select className="my-3 form-control">
+                  <option>Select</option>
+                  {
+                    _.size(q_data.option)>0&&(
+                      _.map(q_data.option,(d,n)=>{
+                        return(
+                          <option value={d}>{d}</option>
+                        )
+                      })
+                    )
+                  }
+                </select>
+              </div>
+              <div className="col-sm-6">
+                <div><strong>{q_data&&q_data.sec_column_heading}</strong></div>
+                <select className="my-3 form-control">
+                  <option>Select</option>
+                  {
+                    _.size(q_data.col_option)>0&&(
+                      _.map(q_data.col_option,(d,n)=>{
+                        return(
+                          <option value={d}>{d}</option>
+                        )
+                      })
+                    )
+                  }
+                </select>
+              </div>
+            </div>
+            
+        </div>
+      )
+    }
+    else if (q_data.matrix) {
       const header_data = all_op && all_op[0];
       return (
         <div>

@@ -49,7 +49,12 @@ const jobSchema = new mongoose.Schema({
         multi_choice:{type:Boolean, default: false},
         require:{type:Boolean, default: false},
         matrix:{type:Boolean, default: false},
-        multi_matrix:{type:Boolean, default: false}     
+        multi_matrix:{type:Boolean, default: false},
+        sec:{type:Boolean, default: false},
+        date_type:{type:Boolean, default: false} ,
+        sec_column_heading:{type:"string", default: null} ,
+        sec_row_heading: {type:"string", default: null},
+        col_option:[]
     }
     ],
     time_frame:{

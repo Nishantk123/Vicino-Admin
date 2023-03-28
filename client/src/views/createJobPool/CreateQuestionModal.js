@@ -17,6 +17,8 @@ const CreateQuestionModal = ({
   const [q_range, setQrange] = useState(1);
   const [r_range, setRowRange] = useState(2);
   const [c_range, setCRange] = useState(1);
+  const [sec_range, setSecRange] = useState(1);
+  const [sec_column_range, setSecColumnRange] = useState(1);
   const [multi_choice, setMultichoice] = useState(true);
   const [singal_choice, setSingalChoice] = useState(true);
   const [other_option, setOtherOption] = useState(true);
@@ -24,6 +26,7 @@ const CreateQuestionModal = ({
   const [text_answer, setTextAnswer] = useState(false);
   const [require, setRequire] = useState(false);
   const [all_option, setAllOpton] = useState([]);
+  const [column_option, setColumnOption] = useState([])
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [matrix, setMatix] = useState(false);
@@ -31,6 +34,10 @@ const CreateQuestionModal = ({
   const [type, setType] = useState("create_question");
   const [edit_index, setEditIndex] = useState(0);
   const [multi_matrix, setMultiMatrix] = useState(false);
+  const [sec, setSec] = useState(false);
+  const [date_type, setDateType] = useState(false);
+  const [sec_row_heading, setSecRowHeading] = useState("");
+  const [sec_column_heading, setColumnHeading] = useState("")
   const customStyles = {
     content: {
       top: "0%",
@@ -88,7 +95,21 @@ const CreateQuestionModal = ({
       allOp.splice(index, 1);
       setAllOpton(allOp);
     }
+    if (sec_range > 1) {
+      setSecRange(sec_range - 1);
+      let allOp = [...all_option];
+      allOp.splice(index, 1);
+      setAllOpton(allOp);
+    }
   };
+  const handleRemoveColumn = (index) =>{
+    if(sec_column_range >1){
+      setSecColumnRange(sec_column_range - 1)
+      let allOp = [...column_option];
+      allOp.splice(index, 1);
+      setColumnOption(allOp);
+    }
+  }
   const handleSetting = (e, name) => {
     console.log(e.target.checked);
     if (name === "Multiple Selection") {
@@ -146,6 +167,12 @@ const CreateQuestionModal = ({
       answer: text_answer,
       matrix: matrix,
       multi_matrix: multi_matrix,
+      date_type: date_type,
+      sec: sec,
+      sec_column_heading:sec_column_heading,
+      sec_row_heading: sec_row_heading,
+      col_option: column_option
+
     };
     handleAddQuestion(final, type, edit_index);
     // handleCloseQuestion();
@@ -160,12 +187,22 @@ const CreateQuestionModal = ({
     setOtherOption(false);
     setAudioVideo(false);
     setMultichoice(false);
+    setSec(false)
+    setQuestion("")
+    setColumnHeading("")
+    setSecRowHeading("")
   };
   const hanldleOption = (e, index) => {
     let all_op = [...all_option];
     all_op[index] = e.target.value;
     setAllOpton(all_op);
   };
+  const handleSecColumn = (e, index) =>{
+    let all_op = [...column_option];
+    all_op[index] = e.target.value;
+    setColumnOption(all_op)
+    console.log(all_op)
+  }
   const handleAnswer = (e) => {
     setAnswer(e.target.value);
   };
@@ -393,6 +430,94 @@ const CreateQuestionModal = ({
           </div>
         </div>
       );
+    } else if (date_type) {
+      return (
+        <div>
+          <div className="">
+            <input
+              type="date"
+              className="form-control"
+              // onChange={(e) => handleAnswer(e)}
+            />
+          </div>
+        </div>
+      );
+    } else if (sec) {
+      return (
+        <div className="row">
+          <div className="col-sm-6">
+            <div> <strong>Add Row option</strong></div>
+            <input
+              className="form-control"
+              placeholder="Enter Row heading"
+              value={sec_row_heading}
+              onChange={(e) => setSecRowHeading(e.target.value)}
+            />
+            {_.map(_.range(sec_range), (data, index) => {
+              return (
+                <div className="d-flex my-2">
+                  <div className="border px-3">{alfa[index]}</div>
+                  <input
+                    placeholder="Please Write an Option"
+                    className="form-control  w-100"
+                    value={(all_option && all_option[index]) || ""}
+                    onChange={(e) => {
+                      hanldleOption(e, index);
+                    }}
+                  />
+                  <img
+                    src={close}
+                    className="close_question-icon"
+                    onClick={() => handleremoveQuestion(index)}
+                  />
+                </div>
+              );
+            })}
+            <button
+              className="btn btn-outline-secondary  mt-3"
+              onClick={() => {
+                setSecRange(sec_range + 1);
+              }}
+            >
+              Add More dropdown Option
+            </button>
+          </div>
+          <div className="col-sm-6">
+            <div><strong>Add column option</strong></div>
+            <input className="form-control" value={sec_column_heading} onChange={(e)=>setColumnHeading(e.target.value)} placeholder="select column heading" />
+            {_.map(_.range(sec_column_range), (data, index) => {
+              return (
+                <div className="d-flex my-2">
+                  <div className="border px-3">{alfa[index]}</div>
+                  <input
+                    placeholder="Please Write an Option"
+                    className="form-control  w-100"
+                    value={(column_option && column_option[index]) || ""}
+                    onChange={(e) => {
+                      handleSecColumn(e, index);
+                    }}
+                  />
+                  <img
+                    src={close}
+                    className="close_question-icon"
+                    onClick={() => handleRemoveColumn(index)}
+                  />
+                </div>
+              );
+            })}
+            <button
+              className="btn btn-outline-secondary  mt-3"
+              onClick={() => {
+                setSecColumnRange(sec_column_range + 1);
+              }}
+            >
+              Add More dropdown Option
+            </button>
+          </div>
+
+          <div></div>
+        </div>
+      );
     } else {
       return (
         <div>
@@ -439,6 +564,8 @@ const CreateQuestionModal = ({
     setCRange(1);
     setRowRange(2);
     setQrange(1);
+    setSecRange(1);
+    setSecColumnRange(1)
     setQuestion("");
     setMultiMatrix(false);
     if (name === "multi") {
@@ -448,6 +575,11 @@ const CreateQuestionModal = ({
       setMatix(false);
       setShow(false);
       setAllOpton([]);
+      setDateType(false);
+      setSec(false);
+      setColumnOption([])
+      setSecRowHeading("")
+      setColumnHeading("")
       setType("create_question");
     } else if (name === "text") {
       setMultichoice(false);
@@ -456,6 +588,11 @@ const CreateQuestionModal = ({
       setMatix(false);
       setShow(false);
       setAllOpton([]);
+      setDateType(false);
+      setSec(false);
+      setColumnOption([])
+      setSecRowHeading("")
+      setColumnHeading("")
       setType("create_question");
     } else if (name === "radio") {
       setMultichoice(true);
@@ -464,6 +601,11 @@ const CreateQuestionModal = ({
       setMatix(false);
       setShow(false);
       setAllOpton([]);
+      setDateType(false);
+      setSec(false);
+      setColumnOption([])
+      setSecRowHeading("")
+      setColumnHeading("")
       setType("create_question");
     } else if (name === "matrix") {
       console.log("inside");
@@ -473,7 +615,37 @@ const CreateQuestionModal = ({
       setMatix(true);
       setShow(false);
       setAllOpton([]);
-
+      setDateType(false);
+      setSec(false);
+      setColumnOption([])
+      setSecRowHeading("")
+      setColumnHeading("")
+      setType("create_question");
+    } else if (name === "date") {
+      setMultichoice(false);
+      setTextAnswer(false);
+      setSingalChoice(false);
+      setMatix(false);
+      setShow(false);
+      setDateType(true);
+      setSec(false);
+      setAllOpton([]);
+      setColumnOption([])
+      setSecRowHeading("")
+      setColumnHeading("")
+      setType("create_question");
+    } else if (name === "sec") {
+      setMultichoice(false);
+      setTextAnswer(false);
+      setSingalChoice(false);
+      setMatix(false);
+      setShow(false);
+      setDateType(false);
+      setSec(true);
+      setAllOpton([]);
+      setColumnOption([])
+      setSecRowHeading("")
+      setColumnHeading("")
       setType("create_question");
     }
   };
@@ -487,6 +659,11 @@ const CreateQuestionModal = ({
     let edit_matrix = _.get(data, "matrix", false);
     let edit_multi_matrix = _.get(data, "multi_matrix", false);
     let edit_question = _.get(data, "question", false);
+    let edit_date_type = _.get(data, "date_type", false);
+    let edit_sec_type = _.get(data, "sec", false);
+    let edit_sec_column_heading =  _.get(data, "sec_column_heading", false);
+    let edit_sec_row_heading = _.get(data, "sec_row_heading", false);
+    let edit_col_option = _.get(data, "col_option", false);
     setType("edit_question");
     setEditIndex(index);
     setAllOpton(all_edit_option);
@@ -497,10 +674,19 @@ const CreateQuestionModal = ({
     setOtherOption(edit_other_option);
     setQuestion(edit_question);
     setMultiMatrix(edit_multi_matrix);
+    setDateType(edit_date_type);
+    setSec(edit_sec_type)
+    setSecRowHeading(edit_sec_row_heading)
+    setSecColumnRange(edit_sec_column_heading)
+    setColumnOption(edit_col_option)
     if (_.size(all_edit_option) > 0) {
       setRowRange(_.size(all_edit_option));
       setQrange(_.size(all_edit_option));
       setCRange(_.size(all_edit_option[0]) - 1);
+      setSecRange(_.size(all_edit_option))
+    }
+    if(_.size(edit_col_option) > 0){
+      setSecColumnRange(_.size(edit_col_option))
     }
   };
   console.log(all_option);

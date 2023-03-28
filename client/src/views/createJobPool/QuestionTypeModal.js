@@ -33,6 +33,8 @@ const QuestionTypeModal = ({show, handleQuestiionType, hanldeClose}) =>{
             <div className="question_type_list" onClick={()=>handleQuestiionType("text")}>Text field</div>
             <div className="question_type_list" onClick={()=>handleQuestiionType("radio")}>Singal choice</div>
             <div className="question_type_list" onClick={()=>handleQuestiionType("matrix")}>Matrix</div>
+            <div className="question_type_list" onClick={()=>handleQuestiionType("sec")}>Dropdown sec</div>
+            <div className="question_type_list" onClick={()=>handleQuestiionType("date")}>Date</div>
         </div>
 
         </Modal>
